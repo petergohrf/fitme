@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inseam — FitMe</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="guide-header">
+    <div class="container">
+      <a class="back-link" href="../index.html">&larr; FitMe</a>
+      <h1>Inseam</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="unit-toggle" role="group" aria-label="Measurement unit">
+      <button type="button" class="unit-button" data-unit="cm" aria-pressed="true">cm</button>
+      <button type="button" class="unit-button" data-unit="in" aria-pressed="false">in</button>
+    </div>
+    <section class="mannequin-section" aria-label="Where to measure">
+      <svg class="mannequin" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mannequinTitle">
+        <title id="mannequinTitle">Diagram of legs showing the tape measure running from the crotch straight down to the floor</title>
+        <rect class="mannequin-body" x="50" y="20" width="100" height="70" rx="20" />
+        <rect class="mannequin-body" x="55" y="85" width="40" height="155" rx="18" />
+        <rect class="mannequin-body" x="105" y="85" width="40" height="155" rx="18" />
+        <path class="mannequin-tape" d="M75 90 L75 235" />
+        <g class="mannequin-ticks">
+          <line x1="68" y1="120" x2="82" y2="120" />
+          <line x1="68" y1="150" x2="82" y2="150" />
+          <line x1="68" y1="180" x2="82" y2="180" />
+          <line x1="68" y1="210" x2="82" y2="210" />
+        </g>
+        <circle class="mannequin-zero" cx="75" cy="90" r="5" />
+      </svg>
+      <p class="mannequin-caption">The tape runs from your crotch straight down the inside of your leg to the floor.</p>
+    </section>
+    <ol class="step-list">
+      <li class="step-card">
+        <p class="step-number">Step 1</p>
+        <p class="step-text">Wear the shoes you'd normally wear with these pants, or measure barefoot for the most accurate number.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 2</p>
+        <p class="step-text">Stand up straight with your feet slightly apart.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 3</p>
+        <p class="step-text">Measure from your crotch straight down the inside of your leg to the floor (or to wherever you want your pants to end).</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 4</p>
+        <p class="step-text">Keep the tape straight and taut — don't let it follow the curve of your leg.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 5</p>
+        <p class="step-text">Read the number at the bottom, at the floor.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+    </ol>
+    <section class="result-section" aria-label="Your result">
+      <h2>Your result</h2>
+      <div class="result-field">
+        <label for="measurementInput" id="measurementInputLabel">Inseam measurement (cm)</label>
+        <input type="number" id="measurementInput" inputmode="decimal" step="0.1" placeholder="e.g. 78" aria-describedby="measurementError">
+      </div>
+      <p class="field-error" id="measurementError" role="alert" hidden></p>
+      <button type="button" class="save-button" id="saveButton">Save measurement</button>
+      <p class="save-confirmation" id="saveConfirmation" aria-live="polite" hidden>Saved!</p>
+      <p class="last-saved" id="lastSaved" hidden></p>
+    </section>
+  </main>
+
+  <script>
+    window.FITME_CONFIG = {
+      measurementName: "Inseam measurement",
+      storageKey: "fitme_inseam",
+      minCm: 50,
+      maxCm: 100,
+    };
+  </script>
+  <script src="../scripts/guide.js"></script>
+</body>
+</html>
