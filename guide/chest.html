@@ -65,6 +65,17 @@
         <div class="illustration-placeholder">Illustration coming soon</div>
       </li>
     </ol>
+    <section class="result-section" aria-label="Your result">
+      <h2>Your result</h2>
+      <div class="result-field">
+        <label for="chestInput" id="chestInputLabel">Chest/bust measurement (cm)</label>
+        <input type="number" id="chestInput" inputmode="decimal" step="0.1" placeholder="e.g. 92">
+      </div>
+      <p class="field-error" id="chestError" hidden></p>
+      <button type="button" class="save-button" id="saveButton">Save measurement</button>
+      <p class="save-confirmation" id="saveConfirmation" hidden>Saved!</p>
+      <p class="last-saved" id="lastSaved" hidden></p>
+    </section>
   </main>
 
   <script src="../scripts/guide.js"></script>
