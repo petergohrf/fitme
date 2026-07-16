@@ -312,3 +312,31 @@ h1, h2, h3 {
   font-size: 0.85rem;
   margin-top: 0.5rem;
 }
+
+.measurements {
+  padding-bottom: 2rem;
+}
+
+.measurement-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.measurement-link {
+  display: block;
+  padding: 0.85rem 1.1rem;
+  background-color: var(--color-tape-ivory);
+  color: var(--color-ink);
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.measurement-link:focus-visible {
+  outline: 3px solid var(--color-thread-berry);
+  outline-offset: 2px;
+}
