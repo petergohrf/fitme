@@ -191,3 +191,59 @@ h1, h2, h3 {
   color: var(--color-tick-charcoal);
   margin-top: 0.5rem;
 }
+
+.step-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.step-card {
+  position: relative;
+  background-color: var(--color-tape-ivory);
+  border-radius: 12px;
+  padding: 1.25rem 1.25rem 1.25rem 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.step-card::before {
+  content: "";
+  position: absolute;
+  left: 0.6rem;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  width: 6px;
+  background-color: var(--color-tick-charcoal);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--color-tape-ivory) 0,
+    var(--color-tape-ivory) 2px,
+    transparent 2px,
+    transparent 10px
+  );
+  border-radius: 3px;
+}
+
+.step-number {
+  font-family: var(--font-display);
+  color: var(--color-thread-berry);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.35rem;
+}
+
+.step-text {
+  margin: 0 0 0.75rem;
+}
+
+.illustration-placeholder {
+  background-color: var(--color-muslin);
+  border: 1px dashed var(--color-tick-charcoal);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-tick-charcoal);
+}
