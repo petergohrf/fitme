@@ -54,11 +54,13 @@ function getRangeForUnit(unit) {
 function showError(message) {
   chestError.textContent = message;
   chestError.hidden = false;
+  chestInput.setAttribute("aria-invalid", "true");
 }
 
 function clearError() {
   chestError.hidden = true;
   chestError.textContent = "";
+  chestInput.removeAttribute("aria-invalid");
 }
 
 function cmToDisplayValue(valueInCm) {
@@ -91,7 +93,12 @@ function saveMeasurement() {
   }
 
   const valueInCm = currentUnit === "in" ? value * CM_PER_INCH : value;
-  localStorage.setItem(STORAGE_KEY, String(valueInCm));
+  try {
+    localStorage.setItem(STORAGE_KEY, String(valueInCm));
+  } catch (error) {
+    showError("Couldn't save — your browser may be blocking storage.");
+    return;
+  }
 
   saveConfirmation.hidden = false;
   updateLastSaved(valueInCm);
@@ -100,7 +107,12 @@ function saveMeasurement() {
 saveButton.addEventListener("click", saveMeasurement);
 
 function loadSavedMeasurement() {
-  const stored = localStorage.getItem(STORAGE_KEY);
+  let stored;
+  try {
+    stored = localStorage.getItem(STORAGE_KEY);
+  } catch (error) {
+    return;
+  }
   if (stored === null) {
     return;
   }

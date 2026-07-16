@@ -69,11 +69,11 @@
       <h2>Your result</h2>
       <div class="result-field">
         <label for="chestInput" id="chestInputLabel">Chest/bust measurement (cm)</label>
-        <input type="number" id="chestInput" inputmode="decimal" step="0.1" placeholder="e.g. 92">
+        <input type="number" id="chestInput" inputmode="decimal" step="0.1" placeholder="e.g. 92" aria-describedby="chestError">
       </div>
-      <p class="field-error" id="chestError" hidden></p>
+      <p class="field-error" id="chestError" role="alert" hidden></p>
       <button type="button" class="save-button" id="saveButton">Save measurement</button>
-      <p class="save-confirmation" id="saveConfirmation" hidden>Saved!</p>
+      <p class="save-confirmation" id="saveConfirmation" aria-live="polite" hidden>Saved!</p>
       <p class="last-saved" id="lastSaved" hidden></p>
     </section>
   </main>
