@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sleeve length — FitMe</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="guide-header">
+    <div class="container">
+      <a class="back-link" href="../index.html">&larr; FitMe</a>
+      <h1>Sleeve length</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="unit-toggle" role="group" aria-label="Measurement unit">
+      <button type="button" class="unit-button" data-unit="cm" aria-pressed="true">cm</button>
+      <button type="button" class="unit-button" data-unit="in" aria-pressed="false">in</button>
+    </div>
+    <section class="mannequin-section" aria-label="Where to measure">
+      <svg class="mannequin" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mannequinTitle">
+        <title id="mannequinTitle">Diagram of an arm showing the tape measure running from the shoulder, over the elbow, to the wrist</title>
+        <circle class="mannequin-body" cx="40" cy="25" r="18" />
+        <rect class="mannequin-body" x="25" y="40" width="30" height="70" rx="15" />
+        <rect class="mannequin-body" x="20" y="105" width="28" height="75" rx="14" />
+        <path class="mannequin-tape" d="M40 25 L40 100 L34 180" />
+        <g class="mannequin-ticks">
+          <line x1="33" y1="55" x2="47" y2="55" />
+          <line x1="32" y1="90" x2="46" y2="90" />
+          <line x1="27" y1="125" x2="41" y2="125" />
+          <line x1="26" y1="155" x2="40" y2="155" />
+        </g>
+        <circle class="mannequin-zero" cx="40" cy="25" r="5" />
+      </svg>
+      <p class="mannequin-caption">The tape runs from your shoulder edge, over your elbow, to your wrist bone.</p>
+    </section>
+    <ol class="step-list">
+      <li class="step-card">
+        <p class="step-number">Step 1</p>
+        <p class="step-text">Stand naturally with your arm relaxed at your side, elbow very slightly bent.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 2</p>
+        <p class="step-text">Start at the edge of your shoulder — where a shoulder seam would sit.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 3</p>
+        <p class="step-text">Run the tape down the outside of your arm, over your elbow, to your wrist bone.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 4</p>
+        <p class="step-text">Keep the tape snug along your arm rather than pulled straight past the elbow bend.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 5</p>
+        <p class="step-text">Read the number at your wrist.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+    </ol>
+    <section class="result-section" aria-label="Your result">
+      <h2>Your result</h2>
+      <div class="result-field">
+        <label for="measurementInput" id="measurementInputLabel">Sleeve length measurement (cm)</label>
+        <input type="number" id="measurementInput" inputmode="decimal" step="0.1" placeholder="e.g. 62" aria-describedby="measurementError">
+      </div>
+      <p class="field-error" id="measurementError" role="alert" hidden></p>
+      <button type="button" class="save-button" id="saveButton">Save measurement</button>
+      <p class="save-confirmation" id="saveConfirmation" aria-live="polite" hidden>Saved!</p>
+      <p class="last-saved" id="lastSaved" hidden></p>
+    </section>
+  </main>
+
+  <script>
+    window.FITME_CONFIG = {
+      measurementName: "Sleeve length measurement",
+      storageKey: "fitme_sleeve",
+      minCm: 40,
+      maxCm: 90,
+    };
+  </script>
+  <script src="../scripts/guide.js"></script>
+</body>
+</html>
