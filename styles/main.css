@@ -98,3 +98,49 @@ h1, h2, h3 {
   color: var(--color-success-moss);
   font-weight: 700;
 }
+
+.guide-header {
+  padding: 1rem 0;
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--color-thread-berry);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.guide-header h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.unit-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.unit-button {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--color-thread-berry);
+  background-color: transparent;
+  color: var(--color-thread-berry);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.unit-button[aria-pressed="true"] {
+  background-color: var(--color-thread-berry);
+  color: var(--color-tape-ivory);
+}
+
+.unit-button:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 2px;
+}
