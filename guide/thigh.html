@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thigh — FitMe</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="guide-header">
+    <div class="container">
+      <a class="back-link" href="../index.html">&larr; FitMe</a>
+      <h1>Thigh</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="unit-toggle" role="group" aria-label="Measurement unit">
+      <button type="button" class="unit-button" data-unit="cm" aria-pressed="true">cm</button>
+      <button type="button" class="unit-button" data-unit="in" aria-pressed="false">in</button>
+    </div>
+    <section class="mannequin-section" aria-label="Where to measure">
+      <svg class="mannequin" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mannequinTitle">
+        <title id="mannequinTitle">Diagram of legs showing the tape measure wrapped around the fullest part of the upper thigh</title>
+        <rect class="mannequin-body" x="50" y="20" width="100" height="70" rx="20" />
+        <rect class="mannequin-body" x="55" y="85" width="40" height="155" rx="18" />
+        <rect class="mannequin-body" x="105" y="85" width="40" height="155" rx="18" />
+        <rect class="mannequin-band" x="55" y="106" width="40" height="20" rx="6" />
+        <path class="mannequin-tape" d="M55 116 Q75 124 95 116" />
+        <g class="mannequin-ticks">
+          <line x1="63" y1="112" x2="63" y2="120" />
+          <line x1="75" y1="117" x2="75" y2="125" />
+          <line x1="87" y1="112" x2="87" y2="120" />
+        </g>
+        <circle class="mannequin-zero" cx="55" cy="116" r="5" />
+      </svg>
+      <p class="mannequin-caption">The tape wraps around the fullest part of your upper thigh, level all the way around.</p>
+    </section>
+    <ol class="step-list">
+      <li class="step-card">
+        <p class="step-number">Step 1</p>
+        <p class="step-text">Stand with your weight even on both feet.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 2</p>
+        <p class="step-text">Find the fullest part of your thigh — usually near the top, just below your hip.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 3</p>
+        <p class="step-text">Wrap the tape around that point, keeping it level all the way around.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 4</p>
+        <p class="step-text">Pull the tape snug against your skin — not tight enough to squeeze or leave a mark.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 5</p>
+        <p class="step-text">Read the number where the tape meets the zero end.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+    </ol>
+    <section class="result-section" aria-label="Your result">
+      <h2>Your result</h2>
+      <div class="result-field">
+        <label for="measurementInput" id="measurementInputLabel">Thigh measurement (cm)</label>
+        <input type="number" id="measurementInput" inputmode="decimal" step="0.1" placeholder="e.g. 55" aria-describedby="measurementError">
+      </div>
+      <p class="field-error" id="measurementError" role="alert" hidden></p>
+      <button type="button" class="save-button" id="saveButton">Save measurement</button>
+      <p class="save-confirmation" id="saveConfirmation" aria-live="polite" hidden>Saved!</p>
+      <p class="last-saved" id="lastSaved" hidden></p>
+    </section>
+  </main>
+
+  <script>
+    window.FITME_CONFIG = {
+      measurementName: "Thigh measurement",
+      storageKey: "fitme_thigh",
+      minCm: 30,
+      maxCm: 90,
+    };
+  </script>
+  <script src="../scripts/guide.js"></script>
+</body>
+</html>
