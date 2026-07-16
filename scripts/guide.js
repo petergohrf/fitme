@@ -98,3 +98,20 @@ function saveMeasurement() {
 }
 
 saveButton.addEventListener("click", saveMeasurement);
+
+function loadSavedMeasurement() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored === null) {
+    return;
+  }
+
+  const valueInCm = parseFloat(stored);
+  if (Number.isNaN(valueInCm)) {
+    return;
+  }
+
+  chestInput.value = cmToDisplayValue(valueInCm);
+  updateLastSaved(valueInCm);
+}
+
+loadSavedMeasurement();
