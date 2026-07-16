@@ -144,3 +144,50 @@ h1, h2, h3 {
   outline: 3px solid var(--color-ink);
   outline-offset: 2px;
 }
+
+.mannequin-section {
+  padding-bottom: 1.5rem;
+  text-align: center;
+}
+
+.mannequin {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+}
+
+.mannequin-body {
+  fill: var(--color-tape-ivory);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+
+.mannequin-band {
+  fill: var(--color-thread-berry);
+  opacity: 0.18;
+  stroke: none;
+}
+
+.mannequin-tape {
+  fill: none;
+  stroke: var(--color-thread-berry);
+  stroke-width: 3;
+  stroke-dasharray: 6 5;
+}
+
+.mannequin-ticks {
+  stroke: var(--color-tick-charcoal);
+  stroke-width: 1.5;
+}
+
+.mannequin-zero {
+  fill: var(--color-thread-berry);
+  stroke: var(--color-tape-ivory);
+  stroke-width: 1.5;
+}
+
+.mannequin-caption {
+  font-size: 0.85rem;
+  color: var(--color-tick-charcoal);
+  margin-top: 0.5rem;
+}

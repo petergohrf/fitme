@@ -19,6 +19,25 @@
       <button type="button" class="unit-button" data-unit="cm" aria-pressed="true">cm</button>
       <button type="button" class="unit-button" data-unit="in" aria-pressed="false">in</button>
     </div>
+    <section class="mannequin-section" aria-label="Where to measure">
+      <svg class="mannequin" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mannequinTitle">
+        <title id="mannequinTitle">Diagram of a torso showing the tape measure wrapped around the fullest part of the chest</title>
+        <circle class="mannequin-body" cx="100" cy="28" r="20" />
+        <rect class="mannequin-body" x="90" y="46" width="20" height="14" />
+        <path class="mannequin-body" d="M60 60 Q40 60 38 100 L34 230 Q100 245 166 230 L162 100 Q160 60 140 60 Z" />
+        <rect class="mannequin-band" x="34" y="88" width="132" height="26" />
+        <path class="mannequin-tape" d="M34 101 Q100 118 166 101" />
+        <g class="mannequin-ticks">
+          <line x1="55" y1="96" x2="55" y2="104" />
+          <line x1="80" y1="105" x2="80" y2="113" />
+          <line x1="100" y1="108" x2="100" y2="116" />
+          <line x1="120" y1="105" x2="120" y2="113" />
+          <line x1="145" y1="96" x2="145" y2="104" />
+        </g>
+        <circle class="mannequin-zero" cx="34" cy="101" r="5" />
+      </svg>
+      <p class="mannequin-caption">The tape wraps around the fullest part of your chest/bust, level all the way around.</p>
+    </section>
   </main>
 
   <script src="../scripts/guide.js"></script>
