@@ -1,11 +1,9 @@
+const config = window.FITME_CONFIG;
 const CM_PER_INCH = 2.54;
-const STORAGE_KEY = "fitme_chest";
-const MIN_CM = 30;
-const MAX_CM = 200;
 
 const unitButtons = document.querySelectorAll(".unit-button");
-const chestInput = document.getElementById("chestInput");
-const chestInputLabel = document.getElementById("chestInputLabel");
+const measurementInput = document.getElementById("measurementInput");
+const measurementInputLabel = document.getElementById("measurementInputLabel");
 
 let currentUnit = "cm";
 
@@ -18,9 +16,9 @@ function setUnit(unit) {
     button.setAttribute("aria-pressed", String(isSelected));
   });
 
-  chestInputLabel.textContent = `Chest/bust measurement (${unit})`;
+  measurementInputLabel.textContent = `${config.measurementName} (${unit})`;
 
-  const currentValue = parseFloat(chestInput.value);
+  const currentValue = parseFloat(measurementInput.value);
   if (!Number.isNaN(currentValue)) {
     let converted = currentValue;
     if (unit === "in" && previousUnit === "cm") {
@@ -28,7 +26,7 @@ function setUnit(unit) {
     } else if (unit === "cm" && previousUnit === "in") {
       converted = currentValue * CM_PER_INCH;
     }
-    chestInput.value = Math.round(converted * 10) / 10;
+    measurementInput.value = Math.round(converted * 10) / 10;
   }
 }
 
@@ -36,31 +34,31 @@ unitButtons.forEach((button) => {
   button.addEventListener("click", () => setUnit(button.dataset.unit));
 });
 
-const chestError = document.getElementById("chestError");
+const measurementError = document.getElementById("measurementError");
 const saveButton = document.getElementById("saveButton");
 const saveConfirmation = document.getElementById("saveConfirmation");
 const lastSaved = document.getElementById("lastSaved");
 
 function getRangeForUnit(unit) {
   if (unit === "cm") {
-    return { min: MIN_CM, max: MAX_CM };
+    return { min: config.minCm, max: config.maxCm };
   }
   return {
-    min: Math.round((MIN_CM / CM_PER_INCH) * 10) / 10,
-    max: Math.round((MAX_CM / CM_PER_INCH) * 10) / 10,
+    min: Math.round((config.minCm / CM_PER_INCH) * 10) / 10,
+    max: Math.round((config.maxCm / CM_PER_INCH) * 10) / 10,
   };
 }
 
 function showError(message) {
-  chestError.textContent = message;
-  chestError.hidden = false;
-  chestInput.setAttribute("aria-invalid", "true");
+  measurementError.textContent = message;
+  measurementError.hidden = false;
+  measurementInput.setAttribute("aria-invalid", "true");
 }
 
 function clearError() {
-  chestError.hidden = true;
-  chestError.textContent = "";
-  chestInput.removeAttribute("aria-invalid");
+  measurementError.hidden = true;
+  measurementError.textContent = "";
+  measurementInput.removeAttribute("aria-invalid");
 }
 
 function cmToDisplayValue(valueInCm) {
@@ -79,7 +77,7 @@ function saveMeasurement() {
   clearError();
   saveConfirmation.hidden = true;
 
-  const value = parseFloat(chestInput.value);
+  const value = parseFloat(measurementInput.value);
   const range = getRangeForUnit(currentUnit);
 
   if (Number.isNaN(value)) {
@@ -94,7 +92,7 @@ function saveMeasurement() {
 
   const valueInCm = currentUnit === "in" ? value * CM_PER_INCH : value;
   try {
-    localStorage.setItem(STORAGE_KEY, String(valueInCm));
+    localStorage.setItem(config.storageKey, String(valueInCm));
   } catch (error) {
     showError("Couldn't save — your browser may be blocking storage.");
     return;
@@ -109,7 +107,7 @@ saveButton.addEventListener("click", saveMeasurement);
 function loadSavedMeasurement() {
   let stored;
   try {
-    stored = localStorage.getItem(STORAGE_KEY);
+    stored = localStorage.getItem(config.storageKey);
   } catch (error) {
     return;
   }
@@ -122,7 +120,7 @@ function loadSavedMeasurement() {
     return;
   }
 
-  chestInput.value = cmToDisplayValue(valueInCm);
+  measurementInput.value = cmToDisplayValue(valueInCm);
   updateLastSaved(valueInCm);
 }
 
