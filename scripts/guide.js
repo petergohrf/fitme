@@ -35,3 +35,66 @@ function setUnit(unit) {
 unitButtons.forEach((button) => {
   button.addEventListener("click", () => setUnit(button.dataset.unit));
 });
+
+const chestError = document.getElementById("chestError");
+const saveButton = document.getElementById("saveButton");
+const saveConfirmation = document.getElementById("saveConfirmation");
+const lastSaved = document.getElementById("lastSaved");
+
+function getRangeForUnit(unit) {
+  if (unit === "cm") {
+    return { min: MIN_CM, max: MAX_CM };
+  }
+  return {
+    min: Math.round((MIN_CM / CM_PER_INCH) * 10) / 10,
+    max: Math.round((MAX_CM / CM_PER_INCH) * 10) / 10,
+  };
+}
+
+function showError(message) {
+  chestError.textContent = message;
+  chestError.hidden = false;
+}
+
+function clearError() {
+  chestError.hidden = true;
+  chestError.textContent = "";
+}
+
+function cmToDisplayValue(valueInCm) {
+  return currentUnit === "in"
+    ? Math.round((valueInCm / CM_PER_INCH) * 10) / 10
+    : Math.round(valueInCm * 10) / 10;
+}
+
+function updateLastSaved(valueInCm) {
+  const displayValue = cmToDisplayValue(valueInCm);
+  lastSaved.textContent = `Last saved: ${displayValue} ${currentUnit}`;
+  lastSaved.hidden = false;
+}
+
+function saveMeasurement() {
+  clearError();
+  saveConfirmation.hidden = true;
+
+  const value = parseFloat(chestInput.value);
+  const range = getRangeForUnit(currentUnit);
+
+  if (Number.isNaN(value)) {
+    showError("Enter a number before saving.");
+    return;
+  }
+
+  if (value < range.min || value > range.max) {
+    showError(`Enter a value between ${range.min} and ${range.max} ${currentUnit}.`);
+    return;
+  }
+
+  const valueInCm = currentUnit === "in" ? value * CM_PER_INCH : value;
+  localStorage.setItem(STORAGE_KEY, String(valueInCm));
+
+  saveConfirmation.hidden = false;
+  updateLastSaved(valueInCm);
+}
+
+saveButton.addEventListener("click", saveMeasurement);
