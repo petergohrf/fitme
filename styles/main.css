@@ -119,7 +119,7 @@ h1, h2, h3 {
 .unit-toggle {
   display: flex;
   gap: 0.5rem;
-  margin: 1rem 0 1.5rem;
+  margin: 1rem 0 1.25rem;
 }
 
 .unit-button {
@@ -146,7 +146,7 @@ h1, h2, h3 {
 }
 
 .mannequin-section {
-  padding-bottom: 1.5rem;
+  padding-bottom: 1rem;
   text-align: center;
 }
 
@@ -202,8 +202,8 @@ h1, h2, h3 {
   position: relative;
   background-color: var(--color-tape-ivory);
   border-radius: 12px;
-  padding: 1.25rem 1.25rem 1.25rem 2rem;
-  margin-bottom: 1.25rem;
+  padding: 0.9rem 0.9rem 0.9rem 2rem;
+  margin-bottom: 0.85rem;
 }
 
 .step-card::before {
@@ -242,14 +242,14 @@ h1, h2, h3 {
   background-color: var(--color-muslin);
   border: 1px dashed var(--color-tick-charcoal);
   border-radius: 8px;
-  padding: 1.5rem;
+  padding: 0.9rem;
   text-align: center;
   font-size: 0.8rem;
   color: var(--color-tick-charcoal);
 }
 
 .result-section {
-  padding-bottom: 3rem;
+  padding-bottom: 1.75rem;
 }
 
 .result-field {
