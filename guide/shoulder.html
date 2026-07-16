@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoulder width — FitMe</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="guide-header">
+    <div class="container">
+      <a class="back-link" href="../index.html">&larr; FitMe</a>
+      <h1>Shoulder width</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="unit-toggle" role="group" aria-label="Measurement unit">
+      <button type="button" class="unit-button" data-unit="cm" aria-pressed="true">cm</button>
+      <button type="button" class="unit-button" data-unit="in" aria-pressed="false">in</button>
+    </div>
+    <section class="mannequin-section" aria-label="Where to measure">
+      <svg class="mannequin" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mannequinTitle">
+        <title id="mannequinTitle">Diagram of a torso showing the tape measure running straight across the back from shoulder edge to shoulder edge</title>
+        <circle class="mannequin-body" cx="100" cy="28" r="20" />
+        <rect class="mannequin-body" x="90" y="46" width="20" height="14" />
+        <path class="mannequin-body" d="M60 60 Q40 60 38 100 L34 230 Q100 245 166 230 L162 100 Q160 60 140 60 Z" />
+        <path class="mannequin-tape" d="M40 92 L160 92" />
+        <g class="mannequin-ticks">
+          <line x1="60" y1="87" x2="60" y2="97" />
+          <line x1="100" y1="87" x2="100" y2="97" />
+          <line x1="140" y1="87" x2="140" y2="97" />
+        </g>
+        <circle class="mannequin-zero" cx="40" cy="92" r="5" />
+      </svg>
+      <p class="mannequin-caption">The tape runs straight across your back, from the edge of one shoulder to the edge of the other.</p>
+    </section>
+    <ol class="step-list">
+      <li class="step-card">
+        <p class="step-number">Step 1</p>
+        <p class="step-text">Stand naturally with your arms relaxed at your sides.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 2</p>
+        <p class="step-text">This one's tricky to do alone — ask someone to help if you can.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 3</p>
+        <p class="step-text">Measure straight across your back, from the edge of one shoulder (where your arm meets your shoulder) to the edge of the other.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 4</p>
+        <p class="step-text">Keep the tape flat and straight — don't let it follow the curve of your neck or back.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 5</p>
+        <p class="step-text">Read the number where the tape reaches the far shoulder.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+    </ol>
+    <section class="result-section" aria-label="Your result">
+      <h2>Your result</h2>
+      <div class="result-field">
+        <label for="measurementInput" id="measurementInputLabel">Shoulder width measurement (cm)</label>
+        <input type="number" id="measurementInput" inputmode="decimal" step="0.1" placeholder="e.g. 42" aria-describedby="measurementError">
+      </div>
+      <p class="field-error" id="measurementError" role="alert" hidden></p>
+      <button type="button" class="save-button" id="saveButton">Save measurement</button>
+      <p class="save-confirmation" id="saveConfirmation" aria-live="polite" hidden>Saved!</p>
+      <p class="last-saved" id="lastSaved" hidden></p>
+    </section>
+  </main>
+
+  <script>
+    window.FITME_CONFIG = {
+      measurementName: "Shoulder width measurement",
+      storageKey: "fitme_shoulder",
+      minCm: 30,
+      maxCm: 60,
+    };
+  </script>
+  <script src="../scripts/guide.js"></script>
+</body>
+</html>
