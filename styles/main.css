@@ -60,24 +60,6 @@ h1, h2, h3 {
   color: var(--color-tick-charcoal);
 }
 
-.cta-button {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.85rem 1.5rem;
-  background-color: var(--color-thread-berry);
-  color: var(--color-tape-ivory);
-  text-decoration: none;
-  text-align: center;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.cta-button:focus-visible {
-  outline: 3px solid var(--color-ink);
-  outline-offset: 2px;
-}
-
 .trust {
   padding-bottom: 2rem;
 }
