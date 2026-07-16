@@ -67,6 +67,7 @@ h1, h2, h3 {
   background-color: var(--color-thread-berry);
   color: var(--color-tape-ivory);
   text-decoration: none;
+  text-align: center;
   border-radius: 999px;
   font-weight: 600;
   font-size: 1rem;
