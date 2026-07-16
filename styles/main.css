@@ -33,3 +33,67 @@ h1, h2, h3 {
   margin: 0 auto;
   padding: 1.5rem;
 }
+
+.site-header {
+  padding: 1rem 0;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-thread-berry);
+}
+
+.hero {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.hero h1 {
+  font-size: 1.75rem;
+  line-height: 1.25;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--color-tick-charcoal);
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.85rem 1.5rem;
+  background-color: var(--color-thread-berry);
+  color: var(--color-tape-ivory);
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.cta-button:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.trust {
+  padding-bottom: 2rem;
+}
+
+.trust-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-tick-charcoal);
+}
+
+.trust-list li::before {
+  content: "✓ ";
+  color: var(--color-success-moss);
+  font-weight: 700;
+}
