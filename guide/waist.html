@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waist — FitMe</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header class="guide-header">
+    <div class="container">
+      <a class="back-link" href="../index.html">&larr; FitMe</a>
+      <h1>Waist</h1>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="unit-toggle" role="group" aria-label="Measurement unit">
+      <button type="button" class="unit-button" data-unit="cm" aria-pressed="true">cm</button>
+      <button type="button" class="unit-button" data-unit="in" aria-pressed="false">in</button>
+    </div>
+    <section class="mannequin-section" aria-label="Where to measure">
+      <svg class="mannequin" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mannequinTitle">
+        <title id="mannequinTitle">Diagram of a torso showing the tape measure wrapped around the natural waist</title>
+        <circle class="mannequin-body" cx="100" cy="28" r="20" />
+        <rect class="mannequin-body" x="90" y="46" width="20" height="14" />
+        <path class="mannequin-body" d="M60 60 Q40 60 38 100 L34 230 Q100 245 166 230 L162 100 Q160 60 140 60 Z" />
+        <rect class="mannequin-band" x="34" y="140" width="132" height="24" />
+        <path class="mannequin-tape" d="M34 152 Q100 168 166 152" />
+        <g class="mannequin-ticks">
+          <line x1="55" y1="147" x2="55" y2="155" />
+          <line x1="80" y1="155" x2="80" y2="163" />
+          <line x1="100" y1="158" x2="100" y2="166" />
+          <line x1="120" y1="155" x2="120" y2="163" />
+          <line x1="145" y1="147" x2="145" y2="155" />
+        </g>
+        <circle class="mannequin-zero" cx="34" cy="152" r="5" />
+      </svg>
+      <p class="mannequin-caption">The tape wraps around your natural waist, level all the way around.</p>
+    </section>
+    <ol class="step-list">
+      <li class="step-card">
+        <p class="step-number">Step 1</p>
+        <p class="step-text">Stand naturally, relaxed — don't hold your stomach in or push it out.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 2</p>
+        <p class="step-text">Find your natural waist — usually the narrowest point above your belly button and below your ribs. If you're not sure, bend gently to one side; the crease that forms is your waist.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 3</p>
+        <p class="step-text">Wrap the tape around that point, keeping it parallel to the floor all the way around.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 4</p>
+        <p class="step-text">Pull the tape snug against your body — not tight enough to squeeze or leave a mark.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+      <li class="step-card">
+        <p class="step-number">Step 5</p>
+        <p class="step-text">Breathe out normally and read the number where the tape meets the zero end.</p>
+        <div class="illustration-placeholder">Illustration coming soon</div>
+      </li>
+    </ol>
+    <section class="result-section" aria-label="Your result">
+      <h2>Your result</h2>
+      <div class="result-field">
+        <label for="measurementInput" id="measurementInputLabel">Waist measurement (cm)</label>
+        <input type="number" id="measurementInput" inputmode="decimal" step="0.1" placeholder="e.g. 80" aria-describedby="measurementError">
+      </div>
+      <p class="field-error" id="measurementError" role="alert" hidden></p>
+      <button type="button" class="save-button" id="saveButton">Save measurement</button>
+      <p class="save-confirmation" id="saveConfirmation" aria-live="polite" hidden>Saved!</p>
+      <p class="last-saved" id="lastSaved" hidden></p>
+    </section>
+  </main>
+
+  <script>
+    window.FITME_CONFIG = {
+      measurementName: "Waist measurement",
+      storageKey: "fitme_waist",
+      minCm: 50,
+      maxCm: 160,
+    };
+  </script>
+  <script src="../scripts/guide.js"></script>
+</body>
+</html>
