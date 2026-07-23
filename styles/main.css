@@ -503,3 +503,17 @@ h1, h2, h3 {
   margin-left: auto;
   flex-shrink: 0;
 }
+
+.auth-sign-in-btn {
+  background: none;
+  border: 1.5px solid currentColor;
+  border-radius: 6px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.auth-sign-in-btn:hover {
+  opacity: 1;
+}

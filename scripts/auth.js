@@ -75,11 +75,26 @@
     var clerk = new window.Clerk(CLERK_PUBLISHABLE_KEY);
     clerk.load().then(function() {
       var btn = document.getElementById('auth-button');
-      if (btn) {
-        clerk.mountUserButton(btn);
+
+      function renderAuthUI() {
+        if (!btn) return;
+        btn.innerHTML = '';
+        if (clerk.user) {
+          clerk.mountUserButton(btn);
+        } else {
+          var el = document.createElement('button');
+          el.className = 'auth-sign-in-btn';
+          el.textContent = 'Sign in';
+          el.addEventListener('click', function() { clerk.openSignIn(); });
+          btn.appendChild(el);
+        }
       }
+
+      renderAuthUI();
+
       clerk.addListener(function(resources) {
         var uid = resources.user ? resources.user.id : null;
+        renderAuthUI();
         if (uid && uid !== currentUid) {
           onSignIn(uid);
         } else if (!uid) {
