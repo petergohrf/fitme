@@ -125,3 +125,31 @@ function loadSavedMeasurement() {
 }
 
 loadSavedMeasurement();
+
+function renderNav() {
+  if (!config.nextHref && !config.prevHref) return;
+
+  const nav = document.createElement('nav');
+  nav.className = 'guide-nav';
+  nav.setAttribute('aria-label', 'Measurement navigation');
+
+  if (config.prevHref) {
+    const prev = document.createElement('a');
+    prev.href = config.prevHref;
+    prev.className = 'guide-nav-prev';
+    prev.textContent = `← ${config.prevLabel}`;
+    nav.appendChild(prev);
+  }
+
+  if (config.nextHref) {
+    const next = document.createElement('a');
+    next.href = config.nextHref;
+    next.className = 'guide-nav-next';
+    next.textContent = `Next: ${config.nextLabel} →`;
+    nav.appendChild(next);
+  }
+
+  document.querySelector('main').appendChild(nav);
+}
+
+renderNav();
