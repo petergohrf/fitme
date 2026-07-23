@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Mannequin — FitMe</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="guide-header">
+    <div class="container">
+      <a class="back-link" href="index.html">&larr; FitMe</a>
+      <h1>Your Mannequin</h1>
+    </div>
+  </header>
+
+  <main>
+    <div class="mannequin-canvas-wrap">
+      <canvas id="mannequinCanvas"></canvas>
+    </div>
+    <p class="drag-hint" id="dragHint">Drag to rotate</p>
+
+    <section class="measurements-panel container" aria-label="Your measurements">
+      <h2>Your measurements</h2>
+      <ul class="measurement-panel-list" id="measurementList">
+        <!-- populated by mannequin.js -->
+      </ul>
+    </section>
+  </main>
+
+  <script type="module" src="scripts/mannequin.js"></script>
+</body>
+</html>

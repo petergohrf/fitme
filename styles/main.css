@@ -303,3 +303,127 @@ h1, h2, h3 {
   outline: 3px solid var(--color-thread-berry);
   outline-offset: 2px;
 }
+
+/* ─── Mannequin page ─────────────────────────────────────── */
+
+.mannequin-canvas-wrap {
+  width: 100%;
+  line-height: 0;
+}
+
+#mannequinCanvas {
+  display: block;
+  width: 100%;
+}
+
+.drag-hint {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-tick-charcoal);
+  opacity: 0.7;
+  padding: 0.4rem 0 1rem;
+  transition: opacity 0.6s ease;
+}
+
+.measurements-panel {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+.measurements-panel h2 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.measurement-panel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.measurement-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.9rem;
+}
+
+.measurement-row:last-child {
+  border-bottom: none;
+}
+
+.measurement-label {
+  color: var(--color-ink);
+}
+
+.measurement-value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-tick-charcoal);
+}
+
+.measurement-value.saved {
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.default-badge {
+  background: rgba(0, 0, 0, 0.07);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.75rem;
+  color: var(--color-tick-charcoal);
+}
+
+.measure-link {
+  color: var(--color-thread-berry);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.measure-link:hover {
+  text-decoration: underline;
+}
+
+/* ─── Homepage mannequin preview link ────────────────────── */
+
+.mannequin-preview-wrap {
+  margin-top: 1.25rem;
+}
+
+.mannequin-link {
+  display: block;
+  text-align: center;
+  padding: 0.85rem 1.5rem;
+  background-color: var(--color-thread-berry);
+  color: var(--color-tape-ivory);
+  text-decoration: none;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.mannequin-link[aria-disabled="true"] {
+  background-color: transparent;
+  color: var(--color-tick-charcoal);
+  border: 2px dashed rgba(74, 70, 64, 0.4);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.mannequin-link:not([aria-disabled]):focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.mannequin-link-note {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-tick-charcoal);
+  margin-top: 0.4rem;
+}
