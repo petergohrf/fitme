@@ -28,6 +28,12 @@ function setUnit(unit) {
     }
     measurementInput.value = Math.round(converted * 10) / 10;
   }
+
+  // Persist unit preference and sync to Firestore
+  const ts = Date.now();
+  localStorage.setItem("fitme_unit", unit);
+  localStorage.setItem("fitme_unit_ts", String(ts));
+  if (window.auth) { window.auth.syncUnit(unit, ts); }
 }
 
 unitButtons.forEach((button) => {
@@ -91,12 +97,16 @@ function saveMeasurement() {
   }
 
   const valueInCm = currentUnit === "in" ? value * CM_PER_INCH : value;
+  const ts = Date.now();
   try {
     localStorage.setItem(config.storageKey, String(valueInCm));
+    localStorage.setItem(config.storageKey + "_ts", String(ts));
   } catch (error) {
     showError("Couldn't save — your browser may be blocking storage.");
     return;
   }
+
+  if (window.auth) { window.auth.syncMeasurement(config.storageKey, valueInCm, ts); }
 
   saveConfirmation.hidden = false;
   updateLastSaved(valueInCm);
@@ -124,6 +134,14 @@ function loadSavedMeasurement() {
   updateLastSaved(valueInCm);
 }
 
+function loadSavedUnit() {
+  const saved = localStorage.getItem("fitme_unit");
+  if (saved === "cm" || saved === "in") {
+    setUnit(saved);
+  }
+}
+
+loadSavedUnit();
 loadSavedMeasurement();
 
 function renderNav() {
