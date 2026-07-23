@@ -32,7 +32,7 @@
         <li><a class="measurement-link" href="guide/thigh.html">Thigh &rarr;</a></li>
       </ul>
       <div class="mannequin-preview-wrap">
-        <a class="mannequin-link" href="mannequin.html" id="mannequinLink" aria-disabled="true">
+        <a class="mannequin-link" href="mannequin.html" id="mannequinLink" aria-disabled="true" tabindex="-1">
           Preview your mannequin &rarr;
         </a>
         <p class="mannequin-link-note" id="mannequinLinkNote">Save at least one measurement to unlock</p>
@@ -58,7 +58,9 @@
         return localStorage.getItem(k) !== null;
       });
       if (hasMeasurement) {
-        document.getElementById('mannequinLink').removeAttribute('aria-disabled');
+        var link = document.getElementById('mannequinLink');
+        link.removeAttribute('aria-disabled');
+        link.removeAttribute('tabindex');
         document.getElementById('mannequinLinkNote').hidden = true;
       }
     })();
