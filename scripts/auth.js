@@ -72,29 +72,37 @@
 
   // ─── Clerk init ───────────────────────────────────────────────────
   function initClerk() {
+    var btn = document.getElementById('auth-button');
+
+    // Render the sign-in button immediately — before Clerk loads — so
+    // something always appears even if the network request takes time.
+    function showSignInButton(clerk) {
+      if (!btn) return;
+      btn.innerHTML = '';
+      var el = document.createElement('button');
+      el.className = 'auth-sign-in-btn';
+      el.textContent = 'Sign in';
+      if (clerk) { el.addEventListener('click', function() { clerk.openSignIn(); }); }
+      btn.appendChild(el);
+    }
+
+    showSignInButton(null);
+
     var clerk = new window.Clerk(CLERK_PUBLISHABLE_KEY);
     clerk.load().then(function() {
-      var btn = document.getElementById('auth-button');
-
-      function renderAuthUI() {
-        if (!btn) return;
-        btn.innerHTML = '';
-        if (clerk.user) {
-          clerk.mountUserButton(btn);
-        } else {
-          var el = document.createElement('button');
-          el.className = 'auth-sign-in-btn';
-          el.textContent = 'Sign in';
-          el.addEventListener('click', function() { clerk.openSignIn(); });
-          btn.appendChild(el);
-        }
-      }
-
-      renderAuthUI();
+      // Wire up the click handler now that Clerk is ready
+      var el = btn && btn.querySelector('.auth-sign-in-btn');
+      if (el) { el.addEventListener('click', function() { clerk.openSignIn(); }); }
 
       clerk.addListener(function(resources) {
         var uid = resources.user ? resources.user.id : null;
-        renderAuthUI();
+        if (!btn) return;
+        if (uid) {
+          btn.innerHTML = '';
+          clerk.mountUserButton(btn);
+        } else if (!btn.querySelector('.auth-sign-in-btn')) {
+          showSignInButton(clerk);
+        }
         if (uid && uid !== currentUid) {
           onSignIn(uid);
         } else if (!uid) {
