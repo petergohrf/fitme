@@ -483,3 +483,23 @@ h1, h2, h3 {
   color: var(--color-tick-charcoal);
   margin-top: 0.4rem;
 }
+
+/* ─── Auth button in header ──────────────────────────────── */
+
+.site-header .container,
+.guide-header .container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.guide-header .container h1 {
+  flex: 1;
+  min-width: 0;
+}
+
+#auth-button {
+  margin-left: auto;
+  flex-shrink: 0;
+}

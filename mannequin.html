@@ -5,12 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Mannequin — FitMe</title>
   <link rel="stylesheet" href="styles/main.css">
+  <!-- Firebase compat SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <!-- Clerk JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js" type="text/javascript"></script>
 </head>
 <body>
   <header class="guide-header">
     <div class="container">
       <a class="back-link" href="index.html">&larr; FitMe</a>
       <h1>Your Mannequin</h1>
+      <div id="auth-button"></div>
     </div>
   </header>
 
@@ -100,5 +106,7 @@
   <script src="scripts/vendor/OrbitControls.global.js"></script>
   <!-- Mannequin scene -->
   <script src="scripts/mannequin.js"></script>
+  <script src="scripts/merge-profiles.js"></script>
+  <script src="scripts/auth.js"></script>
 </body>
 </html>
