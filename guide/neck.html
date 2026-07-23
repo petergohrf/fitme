@@ -20,19 +20,57 @@
       <button type="button" class="unit-button" data-unit="in" aria-pressed="false">in</button>
     </div>
     <section class="mannequin-section" aria-label="Where to measure">
-      <svg class="mannequin" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mannequinTitle">
-        <title id="mannequinTitle">Diagram of a head and neck showing the tape measure wrapped around the base of the neck</title>
-        <circle class="mannequin-body" cx="100" cy="28" r="20" />
-        <rect class="mannequin-body" x="90" y="46" width="20" height="14" />
-        <path class="mannequin-body" d="M60 60 Q40 60 38 100 L34 230 Q100 245 166 230 L162 100 Q160 60 140 60 Z" />
-        <rect class="mannequin-band" x="86" y="47" width="28" height="12" rx="6" />
-        <path class="mannequin-tape" d="M86 53 Q100 60 114 53" />
-        <g class="mannequin-ticks">
-          <line x1="92" y1="49" x2="92" y2="57" />
-          <line x1="100" y1="52" x2="100" y2="60" />
-          <line x1="108" y1="49" x2="108" y2="57" />
-        </g>
-        <circle class="mannequin-zero" cx="86" cy="53" r="4" />
+      <svg class="mannequin" viewBox="20 10 160 110" role="img" aria-labelledby="mannequinTitle" xmlns="http://www.w3.org/2000/svg">
+        <title id="mannequinTitle">Diagram of the head and neck with a tape measure wrapped around the base of the neck</title>
+        <defs>
+          <radialGradient id="headG-nm" cx="38%" cy="32%" r="62%">
+            <stop offset="0%" stop-color="#F4F0E8"/>
+            <stop offset="100%" stop-color="#C8C3B6"/>
+          </radialGradient>
+          <radialGradient id="torsoG-nm" cx="40%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#F0EDE4"/>
+            <stop offset="100%" stop-color="#C4BEB2"/>
+          </radialGradient>
+          <linearGradient id="armG-nm" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#BEB9AE"/>
+            <stop offset="28%" stop-color="#EDE9E0"/>
+            <stop offset="72%" stop-color="#EDE9E0"/>
+            <stop offset="100%" stop-color="#B8B4A8"/>
+          </linearGradient>
+          <linearGradient id="legG-nm" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#BEB9AE"/>
+            <stop offset="28%" stop-color="#EDE9E0"/>
+            <stop offset="72%" stop-color="#EDE9E0"/>
+            <stop offset="100%" stop-color="#B8B4A8"/>
+          </linearGradient>
+          <linearGradient id="neckG-nm" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#C4BEB2"/>
+            <stop offset="40%" stop-color="#EDE9E0"/>
+            <stop offset="60%" stop-color="#EDE9E0"/>
+            <stop offset="100%" stop-color="#C0BBB0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Head -->
+        <ellipse cx="100" cy="42" rx="29" ry="34" fill="url(#headG-nm)" stroke="#C0BBB0" stroke-width="1.2"/>
+
+        <!-- Top of shoulders / torso (bottom clipped by viewBox) -->
+        <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-nm)" stroke="#C0BBB0" stroke-width="1.2"/>
+
+        <!-- Neck (drawn over torso top) -->
+        <ellipse cx="100" cy="74" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+        <rect x="90" y="72" width="20" height="20" rx="8" fill="url(#neckG-nm)" stroke="#C0BBB0" stroke-width="1.2"/>
+        <ellipse cx="100" cy="93" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+
+        <!-- Shoulder joint rings (tops visible) -->
+        <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+        <ellipse cx="148" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+
+        <!-- Neck circumference highlight (no tape widget — band too small) -->
+        <ellipse cx="100" cy="83" rx="13" ry="9" fill="#A8324A" opacity="0.08"/>
+        <ellipse cx="100" cy="83" rx="13" ry="5" fill="none" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+        <circle cx="87" cy="83" r="7" fill="#A8324A"/>
+        <circle cx="87" cy="83" r="3.5" fill="white"/>
       </svg>
       <p class="mannequin-caption">The tape wraps around the base of your neck, where a collar would sit.</p>
     </section>
@@ -40,27 +78,202 @@
       <li class="step-card">
         <p class="step-number">Step 1</p>
         <p class="step-text">Stand naturally with your chin level — not tilted up or down.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="45 5 110 105" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure showing head and neck with a horizontal guide line at chin level indicating keep chin level">
+          <defs>
+            <radialGradient id="headG-n1" cx="38%" cy="32%" r="62%">
+              <stop offset="0%" stop-color="#F4F0E8"/>
+              <stop offset="100%" stop-color="#C8C3B6"/>
+            </radialGradient>
+            <radialGradient id="torsoG-n1" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="neckG-n1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C4BEB2"/>
+              <stop offset="40%" stop-color="#EDE9E0"/>
+              <stop offset="60%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#C0BBB0"/>
+            </linearGradient>
+          </defs>
+          <!-- Head -->
+          <ellipse cx="100" cy="42" rx="29" ry="34" fill="url(#headG-n1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Torso top -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-n1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Neck -->
+          <ellipse cx="100" cy="74" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+          <rect x="90" y="72" width="20" height="20" rx="8" fill="url(#neckG-n1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="100" cy="93" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+          <!-- Shoulder joint rings -->
+          <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="148" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Chin-level guide line -->
+          <line x1="70" y1="56" x2="130" y2="56" stroke="#A8324A" stroke-width="1.5" opacity="0.4"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 2</p>
         <p class="step-text">Wrap the tape around the base of your neck, where a shirt collar would sit.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="45 5 110 105" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure showing a dashed tape measure band wrapped around the base of the neck with a zero-point dot on the left">
+          <defs>
+            <radialGradient id="headG-n2" cx="38%" cy="32%" r="62%">
+              <stop offset="0%" stop-color="#F4F0E8"/>
+              <stop offset="100%" stop-color="#C8C3B6"/>
+            </radialGradient>
+            <radialGradient id="torsoG-n2" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="neckG-n2" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C4BEB2"/>
+              <stop offset="40%" stop-color="#EDE9E0"/>
+              <stop offset="60%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#C0BBB0"/>
+            </linearGradient>
+          </defs>
+          <!-- Head -->
+          <ellipse cx="100" cy="42" rx="29" ry="34" fill="url(#headG-n2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Torso top -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-n2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Neck -->
+          <ellipse cx="100" cy="74" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+          <rect x="90" y="72" width="20" height="20" rx="8" fill="url(#neckG-n2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="100" cy="93" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+          <!-- Shoulder joint rings -->
+          <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="148" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Neck band: shaded zone + dashed ellipse + zero-dot -->
+          <ellipse cx="100" cy="83" rx="13" ry="9" fill="#A8324A" opacity="0.08"/>
+          <ellipse cx="100" cy="83" rx="13" ry="5" fill="none" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+          <circle cx="87" cy="83" r="7" fill="#A8324A"/>
+          <circle cx="87" cy="83" r="3.5" fill="white"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 3</p>
         <p class="step-text">Keep the tape level all the way around.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="45 5 110 105" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure showing the neck tape measure band with horizontal arrows on each side showing the tape must stay level">
+          <defs>
+            <radialGradient id="headG-n3" cx="38%" cy="32%" r="62%">
+              <stop offset="0%" stop-color="#F4F0E8"/>
+              <stop offset="100%" stop-color="#C8C3B6"/>
+            </radialGradient>
+            <radialGradient id="torsoG-n3" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="neckG-n3" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C4BEB2"/>
+              <stop offset="40%" stop-color="#EDE9E0"/>
+              <stop offset="60%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#C0BBB0"/>
+            </linearGradient>
+          </defs>
+          <!-- Head -->
+          <ellipse cx="100" cy="42" rx="29" ry="34" fill="url(#headG-n3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Torso top -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-n3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Neck -->
+          <ellipse cx="100" cy="74" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+          <rect x="90" y="72" width="20" height="20" rx="8" fill="url(#neckG-n3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="100" cy="93" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+          <!-- Shoulder joint rings -->
+          <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="148" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Neck band: shaded zone + dashed ellipse + zero-dot -->
+          <ellipse cx="100" cy="83" rx="13" ry="9" fill="#A8324A" opacity="0.08"/>
+          <ellipse cx="100" cy="83" rx="13" ry="5" fill="none" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+          <circle cx="87" cy="83" r="7" fill="#A8324A"/>
+          <circle cx="87" cy="83" r="3.5" fill="white"/>
+          <!-- Level guide extending beyond neck with arrowheads (← →) -->
+          <line x1="75" y1="83" x2="125" y2="83" stroke="#A8324A" stroke-width="1.5" opacity="0.6"/>
+          <!-- Left arrowhead (pointing left) -->
+          <line x1="75" y1="83" x2="81" y2="80" stroke="#A8324A" stroke-width="1.5"/>
+          <line x1="75" y1="83" x2="81" y2="86" stroke="#A8324A" stroke-width="1.5"/>
+          <!-- Right arrowhead (pointing right) -->
+          <line x1="125" y1="83" x2="119" y2="80" stroke="#A8324A" stroke-width="1.5"/>
+          <line x1="125" y1="83" x2="119" y2="86" stroke="#A8324A" stroke-width="1.5"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 4</p>
         <p class="step-text">Pull it snug, but leave enough room to fit a finger between the tape and your neck.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="45 5 110 105" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure showing the neck tape measure band with a small oval representing a finger gap between the tape and the neck">
+          <defs>
+            <radialGradient id="headG-n4" cx="38%" cy="32%" r="62%">
+              <stop offset="0%" stop-color="#F4F0E8"/>
+              <stop offset="100%" stop-color="#C8C3B6"/>
+            </radialGradient>
+            <radialGradient id="torsoG-n4" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="neckG-n4" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C4BEB2"/>
+              <stop offset="40%" stop-color="#EDE9E0"/>
+              <stop offset="60%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#C0BBB0"/>
+            </linearGradient>
+          </defs>
+          <!-- Head -->
+          <ellipse cx="100" cy="42" rx="29" ry="34" fill="url(#headG-n4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Torso top -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-n4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Neck -->
+          <ellipse cx="100" cy="74" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+          <rect x="90" y="72" width="20" height="20" rx="8" fill="url(#neckG-n4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="100" cy="93" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+          <!-- Shoulder joint rings -->
+          <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="148" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Neck band: shaded zone + dashed ellipse + zero-dot -->
+          <ellipse cx="100" cy="83" rx="13" ry="9" fill="#A8324A" opacity="0.08"/>
+          <ellipse cx="100" cy="83" rx="13" ry="5" fill="none" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+          <circle cx="87" cy="83" r="7" fill="#A8324A"/>
+          <circle cx="87" cy="83" r="3.5" fill="white"/>
+          <!-- Finger gap oval inside the tape ring -->
+          <ellipse cx="96" cy="83" rx="4" ry="2" fill="#A8324A" opacity="0.5"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 5</p>
         <p class="step-text">Read the number where the tape meets the zero end.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="45 5 110 105" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure showing the zero-point dot at the left side of the neck tape with a read here label">
+          <defs>
+            <radialGradient id="headG-n5" cx="38%" cy="32%" r="62%">
+              <stop offset="0%" stop-color="#F4F0E8"/>
+              <stop offset="100%" stop-color="#C8C3B6"/>
+            </radialGradient>
+            <radialGradient id="torsoG-n5" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="neckG-n5" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#C4BEB2"/>
+              <stop offset="40%" stop-color="#EDE9E0"/>
+              <stop offset="60%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#C0BBB0"/>
+            </linearGradient>
+          </defs>
+          <!-- Head -->
+          <ellipse cx="100" cy="42" rx="29" ry="34" fill="url(#headG-n5)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Torso top -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-n5)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Neck -->
+          <ellipse cx="100" cy="74" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+          <rect x="90" y="72" width="20" height="20" rx="8" fill="url(#neckG-n5)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="100" cy="93" rx="13" ry="5" fill="#C4BEB2" opacity="0.85"/>
+          <!-- Shoulder joint rings -->
+          <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="148" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Neck band: shaded zone + dashed ellipse -->
+          <ellipse cx="100" cy="83" rx="13" ry="9" fill="#A8324A" opacity="0.08"/>
+          <ellipse cx="100" cy="83" rx="13" ry="5" fill="none" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+          <!-- Zero-dot prominent -->
+          <circle cx="87" cy="83" r="7" fill="#A8324A"/>
+          <circle cx="87" cy="83" r="3.5" fill="white"/>
+          <!-- "read here" label below the dot -->
+          <text x="80" y="98" font-size="6" fill="#A8324A" font-family="sans-serif">read here</text>
+        </svg>
       </li>
     </ol>
     <section class="result-section" aria-label="Your result">

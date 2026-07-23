@@ -138,35 +138,6 @@ h1, h2, h3 {
   height: auto;
 }
 
-.mannequin-body {
-  fill: var(--color-tape-ivory);
-  stroke: var(--color-ink);
-  stroke-width: 2;
-}
-
-.mannequin-band {
-  fill: var(--color-thread-berry);
-  opacity: 0.18;
-  stroke: none;
-}
-
-.mannequin-tape {
-  fill: none;
-  stroke: var(--color-thread-berry);
-  stroke-width: 3;
-  stroke-dasharray: 6 5;
-}
-
-.mannequin-ticks {
-  stroke: var(--color-tick-charcoal);
-  stroke-width: 1.5;
-}
-
-.mannequin-zero {
-  fill: var(--color-thread-berry);
-  stroke: var(--color-tape-ivory);
-  stroke-width: 1.5;
-}
 
 .mannequin-caption {
   font-size: 0.85rem;
@@ -228,6 +199,16 @@ h1, h2, h3 {
   text-align: center;
   font-size: 0.8rem;
   color: var(--color-tick-charcoal);
+}
+
+.step-illustration {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  margin: 0.5rem auto 0;
+  border-radius: 8px;
+  background-color: var(--color-muslin);
 }
 
 .result-section {

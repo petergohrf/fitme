@@ -20,19 +20,62 @@
       <button type="button" class="unit-button" data-unit="in" aria-pressed="false">in</button>
     </div>
     <section class="mannequin-section" aria-label="Where to measure">
-      <svg class="mannequin" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mannequinTitle">
-        <title id="mannequinTitle">Diagram of legs showing the tape measure running from the crotch straight down to the floor</title>
-        <rect class="mannequin-body" x="50" y="20" width="100" height="70" rx="20" />
-        <rect class="mannequin-body" x="55" y="85" width="40" height="155" rx="18" />
-        <rect class="mannequin-body" x="105" y="85" width="40" height="155" rx="18" />
-        <path class="mannequin-tape" d="M75 90 L75 235" />
-        <g class="mannequin-ticks">
-          <line x1="68" y1="120" x2="82" y2="120" />
-          <line x1="68" y1="150" x2="82" y2="150" />
-          <line x1="68" y1="180" x2="82" y2="180" />
-          <line x1="68" y1="210" x2="82" y2="210" />
-        </g>
-        <circle class="mannequin-zero" cx="75" cy="90" r="5" />
+      <svg class="mannequin" viewBox="20 195 160 240" role="img" aria-labelledby="mannequinTitle" xmlns="http://www.w3.org/2000/svg">
+        <title id="mannequinTitle">Diagram of both legs with a tape measure running from the crotch straight down the inside of the leg to the floor</title>
+        <defs>
+          <radialGradient id="headG-im" cx="38%" cy="32%" r="62%">
+            <stop offset="0%" stop-color="#F4F0E8"/>
+            <stop offset="100%" stop-color="#C8C3B6"/>
+          </radialGradient>
+          <radialGradient id="torsoG-im" cx="40%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#F0EDE4"/>
+            <stop offset="100%" stop-color="#C4BEB2"/>
+          </radialGradient>
+          <linearGradient id="armG-im" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#BEB9AE"/>
+            <stop offset="28%" stop-color="#EDE9E0"/>
+            <stop offset="72%" stop-color="#EDE9E0"/>
+            <stop offset="100%" stop-color="#B8B4A8"/>
+          </linearGradient>
+          <linearGradient id="legG-im" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#BEB9AE"/>
+            <stop offset="28%" stop-color="#EDE9E0"/>
+            <stop offset="72%" stop-color="#EDE9E0"/>
+            <stop offset="100%" stop-color="#B8B4A8"/>
+          </linearGradient>
+          <linearGradient id="neckG-im" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#C4BEB2"/>
+            <stop offset="40%" stop-color="#EDE9E0"/>
+            <stop offset="60%" stop-color="#EDE9E0"/>
+            <stop offset="100%" stop-color="#C0BBB0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Bottom of torso (top edge only visible in crop) -->
+        <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-im)" stroke="#C0BBB0" stroke-width="1.2"/>
+
+        <!-- Left leg -->
+        <rect x="56" y="222" width="38" height="94" rx="18" fill="url(#legG-im)" stroke="#C0BBB0" stroke-width="1.2"/>
+        <rect x="61" y="321" width="28" height="78" rx="14" fill="url(#legG-im)" stroke="#C0BBB0" stroke-width="1.2"/>
+        <ellipse cx="75" cy="412" rx="16" ry="9" fill="url(#legG-im)" stroke="#C0BBB0" stroke-width="1.2"/>
+
+        <!-- Right leg -->
+        <rect x="106" y="222" width="38" height="94" rx="18" fill="url(#legG-im)" stroke="#C0BBB0" stroke-width="1.2"/>
+        <rect x="111" y="321" width="28" height="78" rx="14" fill="url(#legG-im)" stroke="#C0BBB0" stroke-width="1.2"/>
+        <ellipse cx="125" cy="412" rx="16" ry="9" fill="url(#legG-im)" stroke="#C0BBB0" stroke-width="1.2"/>
+
+        <!-- Joint rings (pelvis, knees, ankles) -->
+        <ellipse cx="100" cy="219" rx="47" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+        <ellipse cx="75" cy="318" rx="20" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+        <ellipse cx="125" cy="318" rx="20" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+        <ellipse cx="75" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+        <ellipse cx="125" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+
+        <!-- Inseam linear highlight -->
+        <line x1="75" y1="222" x2="75" y2="412" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+        <circle cx="75" cy="222" r="7" fill="#A8324A"/>
+        <circle cx="75" cy="222" r="3.5" fill="white"/>
+        <circle cx="75" cy="412" r="5" fill="#A8324A"/>
       </svg>
       <p class="mannequin-caption">The tape runs from your crotch straight down the inside of your leg to the floor.</p>
     </section>
@@ -40,27 +83,183 @@
       <li class="step-card">
         <p class="step-number">Step 1</p>
         <p class="step-text">Wear the shoes you'd normally wear with these pants, or measure barefoot for the most accurate number.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="20 200 160 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Both legs standing, feet shown at rest">
+          <defs>
+            <radialGradient id="torsoG-i1" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="legG-i1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BEB9AE"/>
+              <stop offset="28%" stop-color="#EDE9E0"/>
+              <stop offset="72%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#B8B4A8"/>
+            </linearGradient>
+          </defs>
+          <!-- Bottom of torso -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-i1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left leg -->
+          <rect x="56" y="222" width="38" height="94" rx="18" fill="url(#legG-i1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <rect x="61" y="321" width="28" height="78" rx="14" fill="url(#legG-i1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="75" cy="412" rx="16" ry="9" fill="url(#legG-i1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Right leg -->
+          <rect x="106" y="222" width="38" height="94" rx="18" fill="url(#legG-i1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <rect x="111" y="321" width="28" height="78" rx="14" fill="url(#legG-i1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="125" cy="412" rx="16" ry="9" fill="url(#legG-i1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Joint rings -->
+          <ellipse cx="100" cy="219" rx="47" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="75" cy="318" rx="20" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="125" cy="318" rx="20" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="75" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="125" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 2</p>
         <p class="step-text">Stand up straight with your feet slightly apart.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="20 200 160 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Both legs standing with feet slightly apart in standard position">
+          <defs>
+            <radialGradient id="torsoG-i2" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="legG-i2" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BEB9AE"/>
+              <stop offset="28%" stop-color="#EDE9E0"/>
+              <stop offset="72%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#B8B4A8"/>
+            </linearGradient>
+          </defs>
+          <!-- Bottom of torso -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-i2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left leg (standard position: x=56) -->
+          <rect x="56" y="222" width="38" height="94" rx="18" fill="url(#legG-i2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <rect x="61" y="321" width="28" height="78" rx="14" fill="url(#legG-i2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="75" cy="412" rx="16" ry="9" fill="url(#legG-i2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Right leg (standard position: x=106) -->
+          <rect x="106" y="222" width="38" height="94" rx="18" fill="url(#legG-i2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <rect x="111" y="321" width="28" height="78" rx="14" fill="url(#legG-i2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="125" cy="412" rx="16" ry="9" fill="url(#legG-i2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Joint rings -->
+          <ellipse cx="100" cy="219" rx="47" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="75" cy="318" rx="20" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="125" cy="318" rx="20" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="75" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="125" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 3</p>
         <p class="step-text">Measure from your crotch straight down the inside of your leg to the floor (or to wherever you want your pants to end).</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="20 200 160 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Legs with a dashed measurement line running straight from the crotch down to the floor">
+          <defs>
+            <radialGradient id="torsoG-i3" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="legG-i3" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BEB9AE"/>
+              <stop offset="28%" stop-color="#EDE9E0"/>
+              <stop offset="72%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#B8B4A8"/>
+            </linearGradient>
+          </defs>
+          <!-- Bottom of torso -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-i3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left leg -->
+          <rect x="56" y="222" width="38" height="94" rx="18" fill="url(#legG-i3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <rect x="61" y="321" width="28" height="78" rx="14" fill="url(#legG-i3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="75" cy="412" rx="16" ry="9" fill="url(#legG-i3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Right leg -->
+          <rect x="106" y="222" width="38" height="94" rx="18" fill="url(#legG-i3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <rect x="111" y="321" width="28" height="78" rx="14" fill="url(#legG-i3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="125" cy="412" rx="16" ry="9" fill="url(#legG-i3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Joint rings -->
+          <ellipse cx="100" cy="219" rx="47" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="75" cy="318" rx="20" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="125" cy="318" rx="20" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="75" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="125" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Measurement indicator: vertical dashed line from crotch to floor -->
+          <line x1="75" y1="222" x2="75" y2="412" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+          <circle cx="75" cy="222" r="7" fill="#A8324A"/>
+          <circle cx="75" cy="222" r="3.5" fill="white"/>
+          <circle cx="75" cy="412" r="5" fill="#A8324A"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 4</p>
         <p class="step-text">Keep the tape straight and taut — don't let it follow the curve of your leg.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="20 200 160 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Legs showing the correct straight tape line with a check mark, and a wrong curved line with an X mark">
+          <defs>
+            <radialGradient id="torsoG-i4" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="legG-i4" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BEB9AE"/>
+              <stop offset="28%" stop-color="#EDE9E0"/>
+              <stop offset="72%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#B8B4A8"/>
+            </linearGradient>
+          </defs>
+          <!-- Bottom of torso -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-i4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left leg -->
+          <rect x="56" y="222" width="38" height="94" rx="18" fill="url(#legG-i4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <rect x="61" y="321" width="28" height="78" rx="14" fill="url(#legG-i4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="75" cy="412" rx="16" ry="9" fill="url(#legG-i4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Right leg -->
+          <rect x="106" y="222" width="38" height="94" rx="18" fill="url(#legG-i4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <rect x="111" y="321" width="28" height="78" rx="14" fill="url(#legG-i4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <ellipse cx="125" cy="412" rx="16" ry="9" fill="url(#legG-i4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Joint rings -->
+          <ellipse cx="100" cy="219" rx="47" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="75" cy="318" rx="20" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="125" cy="318" rx="20" ry="10" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="75" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="125" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Wrong: curved line following inner-leg contour (right of correct straight line) -->
+          <path d="M 94 222 Q 87 310 89 360 Q 82 390 75 412" fill="none" stroke="#9a9590" stroke-width="3" stroke-dasharray="7 4" opacity="0.5"/>
+          <!-- X marker on the wrong path near knee -->
+          <line x1="84" y1="302" x2="92" y2="314" stroke="#9a9590" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+          <line x1="92" y1="302" x2="84" y2="314" stroke="#9a9590" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+          <!-- Correct: straight vertical measurement line -->
+          <line x1="75" y1="222" x2="75" y2="412" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+          <circle cx="75" cy="222" r="7" fill="#A8324A"/>
+          <circle cx="75" cy="222" r="3.5" fill="white"/>
+          <circle cx="75" cy="412" r="5" fill="#A8324A"/>
+          <!-- Check mark to the left of the correct line -->
+          <path d="M 58 300 L 63 308 L 73 290" fill="none" stroke="#5C7A5E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 5</p>
         <p class="step-text">Read the number at the bottom, at the floor.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="40 370 120 65" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Close-up of ankles and feet with the tape end dot at floor level">
+          <defs>
+            <linearGradient id="legG-i5" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BEB9AE"/>
+              <stop offset="28%" stop-color="#EDE9E0"/>
+              <stop offset="72%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#B8B4A8"/>
+            </linearGradient>
+          </defs>
+          <!-- Left shin (lower portion) -->
+          <rect x="61" y="321" width="28" height="78" rx="14" fill="url(#legG-i5)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Right shin (lower portion) -->
+          <rect x="111" y="321" width="28" height="78" rx="14" fill="url(#legG-i5)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left ankle ring -->
+          <ellipse cx="75" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Right ankle ring -->
+          <ellipse cx="125" cy="401" rx="14" ry="6" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Left foot -->
+          <ellipse cx="75" cy="412" rx="16" ry="9" fill="url(#legG-i5)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Right foot -->
+          <ellipse cx="125" cy="412" rx="16" ry="9" fill="url(#legG-i5)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Tape-end dot at floor level -->
+          <circle cx="75" cy="412" r="5" fill="#A8324A"/>
+        </svg>
       </li>
     </ol>
     <section class="result-section" aria-label="Your result">

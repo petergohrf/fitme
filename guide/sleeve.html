@@ -20,19 +20,55 @@
       <button type="button" class="unit-button" data-unit="in" aria-pressed="false">in</button>
     </div>
     <section class="mannequin-section" aria-label="Where to measure">
-      <svg class="mannequin" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mannequinTitle">
-        <title id="mannequinTitle">Diagram of an arm showing the tape measure running from the shoulder, over the elbow, to the wrist</title>
-        <circle class="mannequin-body" cx="40" cy="25" r="18" />
-        <rect class="mannequin-body" x="25" y="40" width="30" height="70" rx="15" />
-        <rect class="mannequin-body" x="20" y="105" width="28" height="75" rx="14" />
-        <path class="mannequin-tape" d="M40 25 L40 100 L34 180" />
-        <g class="mannequin-ticks">
-          <line x1="33" y1="55" x2="47" y2="55" />
-          <line x1="32" y1="90" x2="46" y2="90" />
-          <line x1="27" y1="125" x2="41" y2="125" />
-          <line x1="26" y1="155" x2="40" y2="155" />
-        </g>
-        <circle class="mannequin-zero" cx="40" cy="25" r="5" />
+      <svg class="mannequin" viewBox="10 60 120 220" role="img" aria-labelledby="mannequinTitle" xmlns="http://www.w3.org/2000/svg">
+        <title id="mannequinTitle">Diagram of the left arm with a tape measure running from the shoulder over the elbow to the wrist</title>
+        <defs>
+          <radialGradient id="headG-slm" cx="38%" cy="32%" r="62%">
+            <stop offset="0%" stop-color="#F4F0E8"/>
+            <stop offset="100%" stop-color="#C8C3B6"/>
+          </radialGradient>
+          <radialGradient id="torsoG-slm" cx="40%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#F0EDE4"/>
+            <stop offset="100%" stop-color="#C4BEB2"/>
+          </radialGradient>
+          <linearGradient id="armG-slm" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#BEB9AE"/>
+            <stop offset="28%" stop-color="#EDE9E0"/>
+            <stop offset="72%" stop-color="#EDE9E0"/>
+            <stop offset="100%" stop-color="#B8B4A8"/>
+          </linearGradient>
+          <linearGradient id="legG-slm" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#BEB9AE"/>
+            <stop offset="28%" stop-color="#EDE9E0"/>
+            <stop offset="72%" stop-color="#EDE9E0"/>
+            <stop offset="100%" stop-color="#B8B4A8"/>
+          </linearGradient>
+          <linearGradient id="neckG-slm" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#C4BEB2"/>
+            <stop offset="40%" stop-color="#EDE9E0"/>
+            <stop offset="60%" stop-color="#EDE9E0"/>
+            <stop offset="100%" stop-color="#C0BBB0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Top edge of torso (right portion clipped by viewBox) -->
+        <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-slm)" stroke="#C0BBB0" stroke-width="1.2"/>
+
+        <!-- Left arm -->
+        <rect x="38" y="106" width="26" height="72" rx="13" fill="url(#armG-slm)" stroke="#C0BBB0" stroke-width="1.2"/>
+        <rect x="41" y="182" width="22" height="62" rx="11" fill="url(#armG-slm)" stroke="#C0BBB0" stroke-width="1.2"/>
+        <ellipse cx="52" cy="256" rx="12" ry="10" fill="url(#armG-slm)" stroke="#C0BBB0" stroke-width="1.2"/>
+
+        <!-- Joint rings (shoulder, elbow, wrist) -->
+        <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+        <ellipse cx="51" cy="180" rx="14" ry="8" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+        <ellipse cx="52" cy="246" rx="11" ry="5" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+
+        <!-- Sleeve linear path highlight (shoulder -> elbow -> wrist) -->
+        <path d="M 52 102 L 51 178 L 52 246" fill="none" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+        <circle cx="52" cy="102" r="7" fill="#A8324A"/>
+        <circle cx="52" cy="102" r="3.5" fill="white"/>
+        <circle cx="52" cy="246" r="5" fill="#A8324A"/>
       </svg>
       <p class="mannequin-caption">The tape runs from your shoulder edge, over your elbow, to your wrist bone.</p>
     </section>
@@ -40,27 +76,169 @@
       <li class="step-card">
         <p class="step-number">Step 1</p>
         <p class="step-text">Stand naturally with your arm relaxed at your side, elbow very slightly bent.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="15 85 110 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Left arm relaxed at side showing shoulder joint, upper arm, elbow, forearm, wrist and hand">
+          <defs>
+            <radialGradient id="torsoG-sl1" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="armG-sl1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BEB9AE"/>
+              <stop offset="28%" stop-color="#EDE9E0"/>
+              <stop offset="72%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#B8B4A8"/>
+            </linearGradient>
+          </defs>
+          <!-- Partial torso for context -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-sl1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left upper arm -->
+          <rect x="38" y="106" width="26" height="72" rx="13" fill="url(#armG-sl1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left forearm -->
+          <rect x="41" y="182" width="22" height="62" rx="11" fill="url(#armG-sl1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left hand -->
+          <ellipse cx="52" cy="256" rx="12" ry="10" fill="url(#armG-sl1)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Joint rings -->
+          <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="51" cy="180" rx="14" ry="8" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="52" cy="246" rx="11" ry="5" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 2</p>
         <p class="step-text">Start at the edge of your shoulder — where a shoulder seam would sit.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="15 85 110 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Left arm with a dot marking the shoulder edge where the tape measure starts">
+          <defs>
+            <radialGradient id="torsoG-sl2" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="armG-sl2" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BEB9AE"/>
+              <stop offset="28%" stop-color="#EDE9E0"/>
+              <stop offset="72%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#B8B4A8"/>
+            </linearGradient>
+          </defs>
+          <!-- Partial torso for context -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-sl2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left upper arm -->
+          <rect x="38" y="106" width="26" height="72" rx="13" fill="url(#armG-sl2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left forearm -->
+          <rect x="41" y="182" width="22" height="62" rx="11" fill="url(#armG-sl2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left hand -->
+          <ellipse cx="52" cy="256" rx="12" ry="10" fill="url(#armG-sl2)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Joint rings -->
+          <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="51" cy="180" rx="14" ry="8" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="52" cy="246" rx="11" ry="5" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Prominent dot at shoulder edge -->
+          <circle cx="38" cy="102" r="7" fill="#A8324A"/>
+          <circle cx="38" cy="102" r="3.5" fill="white"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 3</p>
         <p class="step-text">Run the tape down the outside of your arm, over your elbow, to your wrist bone.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="15 85 110 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Left arm with a dashed tape measure path running from the shoulder down over the elbow to the wrist">
+          <defs>
+            <radialGradient id="torsoG-sl3" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="armG-sl3" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BEB9AE"/>
+              <stop offset="28%" stop-color="#EDE9E0"/>
+              <stop offset="72%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#B8B4A8"/>
+            </linearGradient>
+          </defs>
+          <!-- Partial torso for context -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-sl3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left upper arm -->
+          <rect x="38" y="106" width="26" height="72" rx="13" fill="url(#armG-sl3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left forearm -->
+          <rect x="41" y="182" width="22" height="62" rx="11" fill="url(#armG-sl3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left hand -->
+          <ellipse cx="52" cy="256" rx="12" ry="10" fill="url(#armG-sl3)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Joint rings -->
+          <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="51" cy="180" rx="14" ry="8" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="52" cy="246" rx="11" ry="5" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Measurement path following arm contour from shoulder to wrist -->
+          <path d="M 38 102 L 38 178 L 41 244" fill="none" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+          <!-- Zero-dot at shoulder -->
+          <circle cx="38" cy="102" r="7" fill="#A8324A"/>
+          <circle cx="38" cy="102" r="3.5" fill="white"/>
+          <!-- End-dot at wrist -->
+          <circle cx="41" cy="244" r="5" fill="#A8324A"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 4</p>
         <p class="step-text">Keep the tape snug along your arm rather than pulled straight past the elbow bend.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="15 85 110 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Left arm showing the correct curved tape path with a check mark, and a wrong straight line past the elbow with an X">
+          <defs>
+            <radialGradient id="torsoG-sl4" cx="40%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#F0EDE4"/>
+              <stop offset="100%" stop-color="#C4BEB2"/>
+            </radialGradient>
+            <linearGradient id="armG-sl4" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BEB9AE"/>
+              <stop offset="28%" stop-color="#EDE9E0"/>
+              <stop offset="72%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#B8B4A8"/>
+            </linearGradient>
+          </defs>
+          <!-- Partial torso for context -->
+          <path d="M 100 90 Q 78 90 63 96 Q 48 103 46 116 Q 44 130 48 145 Q 44 160 46 178 Q 48 196 58 207 Q 68 216 82 219 Q 90 221 100 221 Q 110 221 118 219 Q 132 216 142 207 Q 152 196 154 178 Q 156 160 152 145 Q 156 130 154 116 Q 152 103 137 96 Q 122 90 100 90 Z" fill="url(#torsoG-sl4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left upper arm -->
+          <rect x="38" y="106" width="26" height="72" rx="13" fill="url(#armG-sl4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left forearm -->
+          <rect x="41" y="182" width="22" height="62" rx="11" fill="url(#armG-sl4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Left hand -->
+          <ellipse cx="52" cy="256" rx="12" ry="10" fill="url(#armG-sl4)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Joint rings -->
+          <ellipse cx="52" cy="102" rx="15" ry="11" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="51" cy="180" rx="14" ry="8" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <ellipse cx="52" cy="246" rx="11" ry="5" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Wrong: straight line cutting past elbow (gray, faded) -->
+          <line x1="38" y1="102" x2="41" y2="244" stroke="#9a9590" stroke-width="2.5" opacity="0.5"/>
+          <!-- X marker on wrong line near elbow -->
+          <line x1="29" y1="183" x2="37" y2="191" stroke="#9a9590" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+          <line x1="37" y1="183" x2="29" y2="191" stroke="#9a9590" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+          <!-- Correct: contour path following arm over elbow -->
+          <path d="M 38 102 L 38 178 L 41 244" fill="none" stroke="#A8324A" stroke-width="3" stroke-dasharray="7 4"/>
+          <!-- Zero-dot at shoulder -->
+          <circle cx="38" cy="102" r="7" fill="#A8324A"/>
+          <circle cx="38" cy="102" r="3.5" fill="white"/>
+          <!-- End-dot at wrist -->
+          <circle cx="41" cy="244" r="5" fill="#A8324A"/>
+          <!-- Check mark in Success Moss -->
+          <line x1="70" y1="152" x2="76" y2="160" stroke="#5C7A5E" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="76" y1="160" x2="86" y2="146" stroke="#5C7A5E" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
       </li>
       <li class="step-card">
         <p class="step-number">Step 5</p>
         <p class="step-text">Read the number at your wrist.</p>
-        <div class="illustration-placeholder">Illustration coming soon</div>
+        <svg class="step-illustration" viewBox="25 230 80 50" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Close-up of wrist and hand showing the tape measure end-point dot at the wrist bone">
+          <defs>
+            <linearGradient id="armG-sl5" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#BEB9AE"/>
+              <stop offset="28%" stop-color="#EDE9E0"/>
+              <stop offset="72%" stop-color="#EDE9E0"/>
+              <stop offset="100%" stop-color="#B8B4A8"/>
+            </linearGradient>
+          </defs>
+          <!-- Bottom of forearm -->
+          <rect x="41" y="182" width="22" height="62" rx="11" fill="url(#armG-sl5)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Wrist ring -->
+          <ellipse cx="52" cy="246" rx="11" ry="5" fill="#C4BEB2" opacity="0.9" stroke="#B8B3A8" stroke-width="0.8"/>
+          <!-- Hand -->
+          <ellipse cx="52" cy="256" rx="12" ry="10" fill="url(#armG-sl5)" stroke="#C0BBB0" stroke-width="1.2"/>
+          <!-- Tape-end dot at wrist -->
+          <circle cx="41" cy="244" r="5" fill="#A8324A"/>
+        </svg>
       </li>
     </ol>
     <section class="result-section" aria-label="Your result">
