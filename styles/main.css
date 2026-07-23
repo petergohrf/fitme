@@ -276,6 +276,51 @@ h1, h2, h3 {
   margin-top: 0.5rem;
 }
 
+/* ─── Guide page navigation ──────────────────────────────── */
+
+.guide-nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 0 2.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin-top: 1.5rem;
+}
+
+.guide-nav-prev {
+  color: var(--color-tick-charcoal);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-right: auto;
+  opacity: 0.75;
+}
+
+.guide-nav-prev:hover,
+.guide-nav-prev:focus-visible {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.guide-nav-next {
+  display: inline-block;
+  background-color: var(--color-thread-berry);
+  color: var(--color-tape-ivory);
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: opacity 0.15s;
+}
+
+.guide-nav-next:hover,
+.guide-nav-next:focus-visible {
+  opacity: 0.88;
+  outline: 3px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
 .measurements {
   padding-bottom: 2rem;
 }
@@ -309,6 +354,17 @@ h1, h2, h3 {
 .mannequin-canvas-wrap {
   width: 100%;
   line-height: 0;
+  position: relative;
+}
+
+.mannequin-error {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--color-tick-charcoal);
+  font-size: 0.9rem;
+  background: rgba(0,0,0,0.04);
+  border-radius: 8px;
+  margin: 1rem 1.5rem;
 }
 
 #mannequinCanvas {

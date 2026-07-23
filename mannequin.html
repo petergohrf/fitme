@@ -5,14 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Mannequin — FitMe</title>
   <link rel="stylesheet" href="styles/main.css">
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/"
-    }
-  }
-  </script>
 </head>
 <body>
   <header class="guide-header">
@@ -25,17 +17,88 @@
   <main>
     <div class="mannequin-canvas-wrap">
       <canvas id="mannequinCanvas"></canvas>
+      <p class="mannequin-error" id="mannequinError" hidden></p>
     </div>
     <p class="drag-hint" id="dragHint">Drag to rotate</p>
 
     <section class="measurements-panel container" aria-label="Your measurements">
       <h2>Your measurements</h2>
       <ul class="measurement-panel-list" id="measurementList">
-        <!-- populated by mannequin.js -->
       </ul>
     </section>
   </main>
 
-  <script type="module" src="scripts/mannequin.js"></script>
+  <!-- Measurements panel: runs immediately, no Three.js dependency -->
+  <script>
+    var DEFAULTS = {
+      fitme_chest:    95,
+      fitme_waist:    80,
+      fitme_hips:     97,
+      fitme_inseam:   76,
+      fitme_shoulder: 44,
+      fitme_sleeve:   63,
+      fitme_neck:     37,
+      fitme_thigh:    58,
+    };
+
+    var MEASUREMENT_META = [
+      { key: 'fitme_chest',    label: 'Chest / bust',   href: 'guide/chest.html' },
+      { key: 'fitme_waist',    label: 'Waist',           href: 'guide/waist.html' },
+      { key: 'fitme_hips',     label: 'Hips',            href: 'guide/hips.html' },
+      { key: 'fitme_inseam',   label: 'Inseam',          href: 'guide/inseam.html' },
+      { key: 'fitme_shoulder', label: 'Shoulder width',  href: 'guide/shoulder.html' },
+      { key: 'fitme_sleeve',   label: 'Sleeve length',   href: 'guide/sleeve.html' },
+      { key: 'fitme_neck',     label: 'Neck',            href: 'guide/neck.html' },
+      { key: 'fitme_thigh',    label: 'Thigh',           href: 'guide/thigh.html' },
+    ];
+
+    function getMeasurements() {
+      var result = {};
+      for (var key in DEFAULTS) {
+        var raw = localStorage.getItem(key);
+        var parsed = raw !== null ? parseFloat(raw) : NaN;
+        var isDefault = raw === null || isNaN(parsed);
+        result[key] = { value: isDefault ? DEFAULTS[key] : parsed, isDefault: isDefault };
+      }
+      return result;
+    }
+
+    function populatePanel(measurements) {
+      var list = document.getElementById('measurementList');
+      list.innerHTML = '';
+      for (var i = 0; i < MEASUREMENT_META.length; i++) {
+        var meta = MEASUREMENT_META[i];
+        var val = measurements[meta.key];
+        var li = document.createElement('li');
+        li.className = 'measurement-row';
+        if (val.isDefault) {
+          li.innerHTML =
+            '<span class="measurement-label">' + meta.label + '</span>' +
+            '<span class="measurement-value">' +
+            '<span class="default-badge">default</span>' +
+            '<a class="measure-link" href="' + meta.href + '">Measure →</a>' +
+            '</span>';
+        } else {
+          li.innerHTML =
+            '<span class="measurement-label">' + meta.label + '</span>' +
+            '<span class="measurement-value saved">' +
+            Math.round(val.value * 10) / 10 + ' cm ' +
+            '<a class="measure-link" href="' + meta.href + '">Edit →</a>' +
+            '</span>';
+        }
+        list.appendChild(li);
+      }
+    }
+
+    window.FITME_MEASUREMENTS = getMeasurements();
+    populatePanel(window.FITME_MEASUREMENTS);
+  </script>
+
+  <!-- Three.js global build (r160) -->
+  <script src="scripts/vendor/three.min.js"></script>
+  <!-- OrbitControls converted to global -->
+  <script src="scripts/vendor/OrbitControls.global.js"></script>
+  <!-- Mannequin scene -->
+  <script src="scripts/mannequin.js"></script>
 </body>
 </html>
