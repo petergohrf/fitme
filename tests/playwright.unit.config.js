@@ -1,6 +1,7 @@
-// Minimal Playwright config for pure Node.js unit tests (no browser, no server, no Clerk).
-// Used for merge.spec.js and any future logic-only tests.
-// The default playwright.config.js is for E2E tests that need Clerk + a running web server.
+// Minimal config for pure Node.js unit tests (e.g. merge.spec.js) that do not
+// need a browser, a web server, or Clerk credentials.
+// Use: npx playwright test <spec> --config playwright.unit.config.js
+// Use the default playwright.config.js (with .env credentials) for full e2e tests.
 const { defineConfig } = require('@playwright/test');
 
 module.exports = defineConfig({
