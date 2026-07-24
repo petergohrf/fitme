@@ -12,7 +12,7 @@ const FITME_KEYS = [
 // Signs in via the UI: clicks the header Sign in button, fills the Clerk modal.
 // setupClerkTestingToken (called in beforeEach) bypasses bot-detection in headless mode.
 async function signInViaUI(page) {
-  await page.waitForFunction(() => window.Clerk && window.Clerk.loaded, { timeout: 10000 });
+  await page.waitForFunction(() => window.Clerk && window.Clerk.loaded, { timeout: 25000 });
   await page.locator('#auth-button .auth-sign-in-btn').click();
   await page.waitForSelector('input[name="identifier"]', { timeout: 10000 });
   await page.fill('input[name="identifier"]', EMAIL);

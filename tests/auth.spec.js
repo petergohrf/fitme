@@ -10,7 +10,7 @@ async function signInViaUI(page) {
   // The sign-in button click handler guards on window.Clerk.loaded — wait before clicking.
   await page.waitForFunction(
     () => window.Clerk && window.Clerk.loaded,
-    { timeout: 10000 }
+    { timeout: 25000 }
   );
   await page.locator('#auth-button .auth-sign-in-btn').click();
   await page.waitForSelector('input[name="identifier"]', { timeout: 10000 });

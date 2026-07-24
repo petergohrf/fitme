@@ -98,33 +98,41 @@
 
     // Clerk v5 CDN: window.Clerk is the singleton initialized via data-clerk-publishable-key
     // on the <script> tag. Call load() to wait for initialization; do NOT use `new window.Clerk()`.
-    window.Clerk.load().then(function() {
-      // Render auth UI based on the current signed-in state (addListener does not
-      // fire retroactively for sessions that exist when the listener is first added).
-      function renderAuthUI() {
-        if (!btn) return;
-        if (window.Clerk.user) {
-          btn.innerHTML = '';
-          window.Clerk.mountUserButton(btn);
-        } else if (!btn.querySelector('.auth-sign-in-btn')) {
-          showSignInButton();
+    // Retries up to 3 times with exponential backoff — Clerk's dev FAPI can be slow in CI.
+    function loadClerk(attemptsLeft) {
+      window.Clerk.load().then(function() {
+        // Render auth UI based on the current signed-in state (addListener does not
+        // fire retroactively for sessions that exist when the listener is first added).
+        function renderAuthUI() {
+          if (!btn) return;
+          if (window.Clerk.user) {
+            btn.innerHTML = '';
+            window.Clerk.mountUserButton(btn);
+          } else if (!btn.querySelector('.auth-sign-in-btn')) {
+            showSignInButton();
+          }
         }
-      }
 
-      renderAuthUI();
-
-      window.Clerk.addListener(function(resources) {
-        var uid = resources.user ? resources.user.id : null;
         renderAuthUI();
-        if (uid && uid !== currentUid) {
-          onSignIn(uid);
-        } else if (!uid) {
-          onSignOut();
+
+        window.Clerk.addListener(function(resources) {
+          var uid = resources.user ? resources.user.id : null;
+          renderAuthUI();
+          if (uid && uid !== currentUid) {
+            onSignIn(uid);
+          } else if (!uid) {
+            onSignOut();
+          }
+        });
+      }).catch(function(err) {
+        console.error('[auth] Clerk init failed:', err);
+        if (attemptsLeft > 0) {
+          var delay = 2000 * (4 - attemptsLeft); // 2s, 4s, 6s
+          setTimeout(function() { loadClerk(attemptsLeft - 1); }, delay);
         }
       });
-    }).catch(function(err) {
-      console.error('[auth] Clerk init failed:', err);
-    });
+    }
+    loadClerk(3);
   }
 
   // ─── Auto-init ────────────────────────────────────────────────────
