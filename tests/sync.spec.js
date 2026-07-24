@@ -96,6 +96,15 @@ test('saved measurement is restored from Firestore on re-sign-in', async ({ page
 
   const chest = await page.evaluate(() => localStorage.getItem('fitme_chest'));
   expect(chest).toBe('92');
+
+  // Cleanup — reset fitme_chest to avoid stale Firestore value affecting repeat runs
+  await page.evaluate(function() {
+    var ts = Date.now();
+    window.auth.syncMeasurement('fitme_chest', 0, ts);
+    localStorage.removeItem('fitme_chest');
+    localStorage.removeItem('fitme_chest_ts');
+  });
+  await page.waitForTimeout(2000);
 });
 
 test('cloud value wins when it has a newer timestamp', async ({ page }) => {
