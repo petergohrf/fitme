@@ -11,7 +11,7 @@ module.exports = defineConfig({
   reporter: 'html',
   globalSetup: require.resolve('./global-setup.js'),
   use: {
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://localhost:9090',
     trace: 'on-first-retry',
   },
   projects: [
@@ -21,8 +21,8 @@ module.exports = defineConfig({
     },
   ],
   webServer: {
-    command: 'npx serve .. --listen 8080',
-    url: 'http://localhost:8080',
+    command: 'npx serve .. --listen 9090',
+    url: 'http://localhost:9090',
     reuseExistingServer: !process.env.CI,
   },
 });
