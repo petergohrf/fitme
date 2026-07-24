@@ -7,7 +7,11 @@ const measurementInputLabel = document.getElementById("measurementInputLabel");
 
 let currentUnit = "cm";
 
-function setUnit(unit) {
+// Apply unit to the UI only — does NOT touch localStorage or timestamps.
+// Called by loadSavedUnit() on page load so restoring a saved preference
+// does not stamp a fresh fitme_unit_ts, which would always beat the cloud
+// value in the merge and silently overwrite cross-device unit changes.
+function applyUnit(unit) {
   const previousUnit = currentUnit;
   currentUnit = unit;
 
@@ -28,6 +32,10 @@ function setUnit(unit) {
     }
     measurementInput.value = Math.round(converted * 10) / 10;
   }
+}
+
+function setUnit(unit) {
+  applyUnit(unit);
 
   // Persist unit preference and sync to Firestore
   const ts = Date.now();
@@ -137,7 +145,7 @@ function loadSavedMeasurement() {
 function loadSavedUnit() {
   const saved = localStorage.getItem("fitme_unit");
   if (saved === "cm" || saved === "in") {
-    setUnit(saved);
+    applyUnit(saved);
   }
 }
 
