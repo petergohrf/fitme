@@ -76,33 +76,46 @@
 
     // Render the sign-in button immediately — before Clerk loads — so
     // something always appears even if the network request takes time.
-    function showSignInButton(clerk) {
+    function showSignInButton() {
       if (!btn) return;
       btn.innerHTML = '';
       var el = document.createElement('button');
       el.className = 'auth-sign-in-btn';
       el.textContent = 'Sign in';
-      if (clerk) { el.addEventListener('click', function() { clerk.openSignIn(); }); }
+      // Click handler guards against Clerk not yet loaded
+      el.addEventListener('click', function() {
+        if (window.Clerk && window.Clerk.loaded) window.Clerk.openSignIn();
+      });
       btn.appendChild(el);
     }
 
-    showSignInButton(null);
+    showSignInButton();
 
-    var clerk = new window.Clerk(CLERK_PUBLISHABLE_KEY);
-    clerk.load().then(function() {
-      // Wire up the click handler now that Clerk is ready
-      var el = btn && btn.querySelector('.auth-sign-in-btn');
-      if (el) { el.addEventListener('click', function() { clerk.openSignIn(); }); }
+    if (!window.Clerk) {
+      console.error('[auth] Clerk CDN script did not load');
+      return;
+    }
 
-      clerk.addListener(function(resources) {
-        var uid = resources.user ? resources.user.id : null;
+    // Clerk v5 CDN: window.Clerk is the singleton initialized via data-clerk-publishable-key
+    // on the <script> tag. Call load() to wait for initialization; do NOT use `new window.Clerk()`.
+    window.Clerk.load().then(function() {
+      // Render auth UI based on the current signed-in state (addListener does not
+      // fire retroactively for sessions that exist when the listener is first added).
+      function renderAuthUI() {
         if (!btn) return;
-        if (uid) {
+        if (window.Clerk.user) {
           btn.innerHTML = '';
-          clerk.mountUserButton(btn);
+          window.Clerk.mountUserButton(btn);
         } else if (!btn.querySelector('.auth-sign-in-btn')) {
-          showSignInButton(clerk);
+          showSignInButton();
         }
+      }
+
+      renderAuthUI();
+
+      window.Clerk.addListener(function(resources) {
+        var uid = resources.user ? resources.user.id : null;
+        renderAuthUI();
         if (uid && uid !== currentUid) {
           onSignIn(uid);
         } else if (!uid) {
@@ -139,5 +152,6 @@
     // Internal — used by Playwright tests only
     _mergeProfiles: mergeProfiles,
     _getLocalSnapshot: getLocalSnapshot,
+    _uid: function() { return currentUid; },
   };
 })();
