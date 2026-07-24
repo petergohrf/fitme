@@ -22,11 +22,15 @@ async function signInViaUI(page) {
 
   // Clerk may show a "new device" email verification screen in dev mode.
   // Handle it by detecting the OTP input and entering Clerk's dev test code 424242.
-  const verificationInput = page.locator('input[name="code"], [aria-label*="verification" i], [aria-label*="Enter code" i]');
-  const appeared = await verificationInput.first().waitFor({ state: 'visible', timeout: 5000 }).then(() => true).catch(() => false);
+  // Clerk v5 CDN renders the OTP as a hidden input[autocomplete="one-time-code"] backed by
+  // the input-otp library; pressSequentially fires key events so the library updates its state.
+  const verificationInput = page.locator('input[autocomplete="one-time-code"]');
+  const appeared = await verificationInput.first().waitFor({ state: 'attached', timeout: 8000 }).then(() => true).catch(() => false);
   if (appeared) {
-    await verificationInput.first().fill('424242');
-    await page.locator('.cl-formButtonPrimary').first().click();
+    await verificationInput.first().pressSequentially('424242');
+    // Clerk auto-submits after all 6 digits are entered; the Continue button may already be
+    // disabled/detached by the time we reach this line, so ignore errors on the click.
+    await page.locator('.cl-formButtonPrimary').first().click({ timeout: 3000 }).catch(() => {});
   }
 
   // Wait until Clerk confirms the user is set on the JS instance
