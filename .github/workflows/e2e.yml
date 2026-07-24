@@ -27,6 +27,17 @@ jobs:
         working-directory: tests
         run: npx playwright install --with-deps chromium
 
+      - name: Create tests/.env
+        working-directory: tests
+        run: |
+          echo "CLERK_PUBLISHABLE_KEY=${{ secrets.CLERK_PUBLISHABLE_KEY }}" > .env
+          echo "CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }}" >> .env
+          echo "E2E_CLERK_USER_EMAIL=${{ secrets.E2E_CLERK_USER_EMAIL }}" >> .env
+          echo "E2E_CLERK_USER_PASSWORD=${{ secrets.E2E_CLERK_USER_PASSWORD }}" >> .env
+          echo "FIREBASE_TEST_API_KEY=${{ secrets.FIREBASE_TEST_API_KEY }}" >> .env
+          echo "FIREBASE_TEST_PROJECT_ID=${{ secrets.FIREBASE_TEST_PROJECT_ID }}" >> .env
+          echo "FIREBASE_TEST_AUTH_DOMAIN=${{ secrets.FIREBASE_TEST_AUTH_DOMAIN }}" >> .env
+
       - name: Run e2e tests
         working-directory: tests
         env:
