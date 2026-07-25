@@ -67,7 +67,7 @@ function recommendationPanel(rec) {
     <div class="fm-size">Recommended: Size ${rec.size}</div>
     <div class="fm-details">${rows}</div>
     ${warn}
-    <a class="fm-link" href="${FITME_MANNEQUIN_URL}" target="_blank">Preview on your FitMe mannequin →</a>
+    <a class="fm-link" href="${FITME_MANNEQUIN_URL}" target="_blank" rel="noopener noreferrer">Preview on your FitMe mannequin →</a>
   `);
 }
 
