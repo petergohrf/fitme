@@ -97,6 +97,6 @@ function measurementRows(measurements) {
   if (!measurements) return '';
   return Object.entries(measurements)
     .filter(([k]) => k !== 'unit')
-    .map(([k, v]) => `<div class="fm-row"><span>${cap(k)}</span><span>${v}${measurements.unit}</span></div>`)
+    .map(([k, v]) => `<div class="fm-row"><span>${cap(esc(k))}</span><span>${esc(v)}${esc(measurements.unit)}</span></div>`)
     .join('');
 }
