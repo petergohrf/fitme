@@ -5,7 +5,7 @@
       "name": "loft",
       "type": "chart",
       "hostPattern": "loft\\.com",
-      "productPattern": "/product/|/p/"
+      "productPattern": "\\d{4,}\\.html"
     },
     {
       "name": "anntaylor",

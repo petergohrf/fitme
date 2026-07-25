@@ -24,8 +24,12 @@ function assert(label, actual, expected) {
 }
 
 assert('loft product page',
-  detectSite('https://www.loft.com/linen-wide-leg-pant/product/14867453'),
+  detectSite('https://www.loft.com/clothing/pants/catl000014/palmer-wide-leg-crop-pants/775124.html'),
   { name: 'loft', type: 'chart' });
+
+assert('old loft product URL format returns null',
+  detectSite('https://www.loft.com/linen-wide-leg-pant/product/14867453'),
+  null);
 
 assert('ann taylor product page',
   detectSite('https://www.anntaylor.com/the-julie-pant/product/590408'),
