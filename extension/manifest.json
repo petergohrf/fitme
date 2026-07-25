@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "FitMe — Know Your Size",
+  "version": "0.1.0",
+  "description": "See your recommended clothing size on Loft, Ann Taylor, Amazon, and Poshmark based on your FitMe measurements.",
+  "icons": {
+    "16": "assets/icon-16.png",
+    "48": "assets/icon-48.png",
+    "128": "assets/icon-128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icon-16.png",
+      "48": "assets/icon-48.png"
+    }
+  },
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*.loft.com/*",
+    "*://*.anntaylor.com/*",
+    "*://*.amazon.com/*",
+    "*://*.poshmark.com/*",
+    "https://r.jina.ai/*",
+    "https://firestore.googleapis.com/*",
+    "https://petergohrf.github.io/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.loft.com/*",
+        "*://*.anntaylor.com/*",
+        "*://*.amazon.com/*",
+        "*://*.poshmark.com/*"
+      ],
+      "js": [
+        "scripts/site-detector.js",
+        "scripts/jina-client.js",
+        "scripts/size-parser.js",
+        "scripts/recommender.js",
+        "scripts/firebase-client.js",
+        "content/content.js"
+      ],
+      "css": ["content/panel.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://petergohrf.github.io/*"],
+      "js": ["content/auth-bridge.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
