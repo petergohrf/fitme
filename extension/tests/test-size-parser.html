@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Size Parser Tests</title>
+  <style>
+    body { font-family: monospace; padding: 16px; white-space: pre-wrap; }
+    .pass { color: green; }
+    .fail { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+<h2>Size Parser Tests</h2>
+<div id="results"></div>
+<script src="../scripts/size-parser.js"></script>
+<script>
+const out = document.getElementById('results');
+function assert(label, actual, expected) {
+  const pass = JSON.stringify(actual) === JSON.stringify(expected);
+  const div = document.createElement('div');
+  div.className = pass ? 'pass' : 'fail';
+  div.textContent = (pass ? '✓ ' : '✗ FAIL — ') + label
+    + (pass ? '' : '\n  expected: ' + JSON.stringify(expected) + '\n  got:      ' + JSON.stringify(actual));
+  out.appendChild(div);
+}
+
+// Test 1: en-dash range
+assert('parses en-dash range table',
+  parseSizeChart(`
+| Size | Bust | Waist | Hips |
+|------|------|-------|------|
+| S | 34–35 | 27–28 | 37–38 |
+| M | 36–37 | 29–30 | 39–40 |
+`),
+  { S: { bust: [34, 35], waist: [27, 28], hips: [37, 38] },
+    M: { bust: [36, 37], waist: [29, 30], hips: [39, 40] } }
+);
+
+// Test 2: hyphen range
+assert('parses hyphen range table',
+  parseSizeChart(`
+| Size | Bust | Waist |
+|------|------|-------|
+| XS | 32-33 | 25-26 |
+`),
+  { XS: { bust: [32, 33], waist: [25, 26] } }
+);
+
+// Test 3: no table
+assert('returns null when no table', parseSizeChart('No chart here'), null);
+
+// Test 4: irrelevant columns ignored
+assert('ignores irrelevant columns',
+  parseSizeChart(`
+| Size | Color | Bust | Notes |
+|------|-------|------|-------|
+| M | Blue | 36–37 | Relaxed |
+`),
+  { M: { bust: [36, 37] } }
+);
+
+// Test 5: numeric sizes
+assert('handles numeric sizes',
+  parseSizeChart(`
+| Size | Waist | Hips |
+|------|-------|------|
+| 6 | 27–28 | 37–38 |
+| 8 | 29–30 | 39–40 |
+`),
+  { '6': { waist: [27, 28], hips: [37, 38] },
+    '8': { waist: [29, 30], hips: [39, 40] } }
+);
+
+// Test 6: "Chest" header mapped to bust key
+assert('maps Chest column to bust key',
+  parseSizeChart(`
+| Size | Chest | Waist |
+|------|-------|-------|
+| L | 38–40 | 31–33 |
+`),
+  { L: { bust: [38, 40], waist: [31, 33] } }
+);
+</script>
+</body>
+</html>
