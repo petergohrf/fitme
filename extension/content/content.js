@@ -57,14 +57,18 @@ function shell(body) {
 
 function cap(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
 
+function esc(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 function recommendationPanel(rec) {
-  if (!rec.size) return shell(`<p class="fm-message">${rec.warning}</p>`);
+  if (!rec.size) return shell(`<p class="fm-message">${esc(rec.warning)}</p>`);
   const rows = rec.details.map(d =>
     `<div class="fm-row"><span>${cap(d.measurement)}</span><span>${d.value} → ${d.rangeLabel}</span></div>`
   ).join('');
-  const warn = rec.warning ? `<div class="fm-warning">${rec.warning}</div>` : '';
+  const warn = rec.warning ? `<div class="fm-warning">${esc(rec.warning)}</div>` : '';
   return shell(`
-    <div class="fm-size">Recommended: Size ${rec.size}</div>
+    <div class="fm-size">Recommended: Size ${esc(rec.size)}</div>
     <div class="fm-details">${rows}</div>
     ${warn}
     <a class="fm-link" href="${FITME_MANNEQUIN_URL}" target="_blank" rel="noopener noreferrer">Preview on your FitMe mannequin →</a>
