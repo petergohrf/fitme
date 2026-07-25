@@ -64,7 +64,7 @@ function esc(str) {
 function recommendationPanel(rec) {
   if (!rec.size) return shell(`<p class="fm-message">${esc(rec.warning)}</p>`);
   const rows = rec.details.map(d =>
-    `<div class="fm-row"><span>${cap(d.measurement)}</span><span>${d.value} → ${d.rangeLabel}</span></div>`
+    `<div class="fm-row"><span>${cap(esc(d.measurement))}</span><span>${esc(d.value)} → ${esc(d.rangeLabel)}</span></div>`
   ).join('');
   const warn = rec.warning ? `<div class="fm-warning">${esc(rec.warning)}</div>` : '';
   return shell(`
