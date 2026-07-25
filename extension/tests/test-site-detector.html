@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Site Detector Tests</title>
+  <style>
+    body { font-family: monospace; padding: 16px; }
+    .pass { color: green; }
+    .fail { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+<h2>Site Detector Tests</h2>
+<div id="results"></div>
+<script src="../scripts/site-detector.js"></script>
+<script>
+const out = document.getElementById('results');
+function assert(label, actual, expected) {
+  const pass = JSON.stringify(actual) === JSON.stringify(expected);
+  const div = document.createElement('div');
+  div.className = pass ? 'pass' : 'fail';
+  div.textContent = (pass ? '✓ ' : '✗ FAIL — ') + label
+    + (pass ? '' : '\n  expected: ' + JSON.stringify(expected) + '\n  got:      ' + JSON.stringify(actual));
+  out.appendChild(div);
+}
+
+assert('loft product page',
+  detectSite('https://www.loft.com/linen-wide-leg-pant/product/14867453'),
+  { name: 'loft', type: 'chart' });
+
+assert('ann taylor product page',
+  detectSite('https://www.anntaylor.com/the-julie-pant/product/590408'),
+  { name: 'anntaylor', type: 'chart' });
+
+assert('amazon product page',
+  detectSite('https://www.amazon.com/dp/B09XYZ'),
+  { name: 'amazon', type: 'chart' });
+
+assert('poshmark listing',
+  detectSite('https://poshmark.com/listing/Ann-Taylor-dress-123abc'),
+  { name: 'poshmark', type: 'tag-only' });
+
+assert('loft non-product page returns null',
+  detectSite('https://www.loft.com/sale'), null);
+
+assert('amazon search page returns null',
+  detectSite('https://www.amazon.com/s?k=dress'), null);
+
+assert('unsupported site returns null',
+  detectSite('https://www.nordstrom.com/s/dress/123'), null);
+</script>
+</body>
+</html>
