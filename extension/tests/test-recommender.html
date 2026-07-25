@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recommender Tests</title>
+  <style>
+    body { font-family: monospace; padding: 16px; white-space: pre-wrap; }
+    .pass { color: green; }
+    .fail { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+<h2>Recommender Tests</h2>
+<div id="results"></div>
+<script src="../scripts/recommender.js"></script>
+<script>
+const out = document.getElementById('results');
+function assertFields(label, actual, expected) {
+  const pass = Object.keys(expected).every(k => JSON.stringify(actual[k]) === JSON.stringify(expected[k]));
+  const div = document.createElement('div');
+  div.className = pass ? 'pass' : 'fail';
+  div.textContent = (pass ? '✓ ' : '✗ FAIL — ') + label
+    + (pass ? '' : '\n  expected: ' + JSON.stringify(expected) + '\n  got:      ' + JSON.stringify(actual));
+  out.appendChild(div);
+}
+
+const chart = {
+  XS: { bust: [32, 33], waist: [25, 26], hips: [35, 36] },
+  S:  { bust: [34, 35], waist: [27, 28], hips: [37, 38] },
+  M:  { bust: [36, 37], waist: [29, 30], hips: [39, 40] },
+  L:  { bust: [38, 40], waist: [31, 33], hips: [41, 43] },
+};
+
+// Test 1: perfect match
+assertFields('perfect match → M, no warning',
+  getRecommendation(chart, { bust: 36, waist: 29, hips: 39, unit: 'in' }),
+  { size: 'M', warning: null });
+
+// Test 2: between sizes — sizes up
+assertFields('between M and L → sizes up to L',
+  getRecommendation(chart, { bust: 37, waist: 31, hips: 40, unit: 'in' }),
+  { size: 'L', warning: 'Between sizes — sized up to L' });
+
+// Test 3: cm converted to inches before matching
+// 91.44cm = 36in, 73.66cm = 29in, 99.06cm = 39in → M
+assertFields('cm measurements → converts and matches M',
+  getRecommendation(chart, { bust: 91.44, waist: 73.66, hips: 99.06, unit: 'cm' }),
+  { size: 'M', warning: null });
+
+// Test 4: out of range
+assertFields('measurements outside all sizes → size null',
+  getRecommendation(chart, { bust: 50, waist: 45, hips: 55, unit: 'in' }),
+  { size: null, warning: "Your measurements are outside this chart's size range" });
+
+// Test 5: partial measurements (only bust)
+assertFields('partial measurements → recommends from what is available',
+  getRecommendation(chart, { bust: 36, unit: 'in' }),
+  { size: 'M', warning: null });
+</script>
+</body>
+</html>
