@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600&display=swap');
+
 :root {
   --color-muslin: #EDEAE2;
   --color-ink: #2B2A28;
@@ -6,8 +8,8 @@
   --color-tick-charcoal: #4A4640;
   --color-success-moss: #5C7A5E;
 
-  --font-display: ui-rounded, "Segoe UI Rounded", "Hiragino Maru Gothic ProN", Verdana, sans-serif;
-  --font-body: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Segoe UI Mono", Consolas, monospace;
 }
 
@@ -516,4 +518,78 @@ h1, h2, h3 {
 
 .auth-sign-in-btn:hover {
   opacity: 1;
+}
+
+/* ─── Desktop layout (≥ 768px) ───────────────────────────── */
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 860px;
+    padding: 2rem 3rem;
+  }
+
+  /* Wordmark */
+  .wordmark {
+    font-size: 1.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* Hero */
+  .hero {
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    max-width: 640px;
+    line-height: 1.15;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    max-width: 520px;
+  }
+
+  /* Measurement list: 2-column grid */
+  .measurement-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .measurement-link {
+    padding: 1rem 1.25rem;
+  }
+
+  /* Mannequin preview button: don't stretch full-width */
+  .mannequin-link {
+    display: inline-block;
+    padding: 0.85rem 2.5rem;
+  }
+
+  .mannequin-preview-wrap {
+    text-align: left;
+  }
+
+  /* Trust section */
+  .trust-list {
+    flex-direction: row;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  /* Guide pages: cap content width for readability */
+  .guide-header h1 {
+    font-size: 2rem;
+  }
+
+  .step-card {
+    padding: 1.1rem 1.1rem 1.1rem 2.5rem;
+  }
+
+  /* Result input: slightly larger on desktop */
+  .result-field input {
+    font-size: 1.75rem;
+  }
 }
