@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "FitMe — Know Your Size",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "See your recommended clothing size on Loft, Ann Taylor, Amazon, and Poshmark based on your FitMe measurements.",
   "icons": {
     "16": "assets/icon-16.png",

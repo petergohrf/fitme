@@ -8,12 +8,20 @@ function waitForClerk(maxMs) {
   });
 }
 
+function sendWithRetry(message, attemptsLeft) {
+  chrome.runtime.sendMessage(message, response => {
+    if (chrome.runtime.lastError && attemptsLeft > 0) {
+      setTimeout(() => sendWithRetry(message, attemptsLeft - 1), 500);
+    }
+  });
+}
+
 function syncUserId(clerk) {
   const userId = clerk.user ? clerk.user.id : null;
   if (userId) {
-    chrome.runtime.sendMessage({ type: 'STORE_USER_ID', userId });
+    sendWithRetry({ type: 'STORE_USER_ID', userId }, 3);
   } else {
-    chrome.runtime.sendMessage({ type: 'CLEAR_USER_ID' });
+    sendWithRetry({ type: 'CLEAR_USER_ID' }, 3);
   }
 }
 
