@@ -51,6 +51,12 @@
     },
     {
       "matches": ["https://petergohrf.github.io/*"],
+      "js": ["content/page-bridge.js"],
+      "run_at": "document_idle",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://petergohrf.github.io/*"],
       "js": ["content/auth-bridge.js"],
       "run_at": "document_idle"
     }
