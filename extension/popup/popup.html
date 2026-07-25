@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <span class="logo">👗</span>
+    <span class="title">FitMe</span>
+  </div>
+  <div id="signed-out" class="section">
+    <p class="message">Sign in to get size recommendations while you shop.</p>
+    <button id="sign-in-btn" class="btn-primary">Sign in to FitMe</button>
+  </div>
+  <div id="signed-in" class="section hidden">
+    <p class="status">Connected — recommendations are active.</p>
+    <p class="sites">Loft · Ann Taylor · Amazon · Poshmark</p>
+    <button id="sign-out-btn" class="btn-secondary">Sign out</button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
