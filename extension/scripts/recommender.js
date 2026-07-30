@@ -38,7 +38,39 @@ function getRecommendation(chart, measurements) {
     };
   }
 
-  return { size: null, details: [], warning: "Your measurements are outside this chart's size range" };
+  // Nothing landed inside any size's range — the user is between sizes on
+  // every available measurement (e.g. bust says Medium/Large, waist says
+  // Small/Medium). Find the highest size that's still net "too small for
+  // the user", and size up from there.
+  let lower = null;
+  for (const size of sizeOrder) {
+    const net = measurementKeys.reduce((sum, key) => {
+      const range = chart[size][key];
+      if (!range) return sum;
+      const val = userInChartUnits[key];
+      if (val > range[1]) return sum + 1;
+      if (val < range[0]) return sum - 1;
+      return sum;
+    }, 0);
+    if (net > 0) lower = size;
+  }
+
+  const lowerIdx = lower ? sizeOrder.indexOf(lower) : -1;
+  const upper = lowerIdx >= 0 ? sizeOrder[lowerIdx + 1] : null;
+  if (!lower || !upper) {
+    return { size: null, details: [], warning: "Your measurements are outside this chart's size range" };
+  }
+
+  const exceeds = measurementKeys.filter(key => {
+    const range = chart[lower][key];
+    return range && userInChartUnits[key] > range[1];
+  });
+
+  return {
+    size: upper,
+    details: buildDetails(chart[upper], userInChartUnits, measurementKeys, chartUnit),
+    warning: `Between ${lower} and ${upper} — sized up because your ${exceeds.join(', ')} ${exceeds.length > 1 ? 'are' : 'is'} larger than ${lower}'s range`,
+  };
 }
 
 function detectChartUnit(chart) {

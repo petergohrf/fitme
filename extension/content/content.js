@@ -4,9 +4,14 @@ const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
   const site = detectSite(window.location.href);
   if (!site) return;
 
-  const userId = await new Promise(resolve =>
-    chrome.runtime.sendMessage({ type: 'GET_USER_ID' }, r => resolve(r?.userId || null))
-  );
+  const userId = await new Promise(resolve => {
+    // Same "extension context invalidated" risk as auth-bridge.js — see comment there.
+    try {
+      chrome.runtime.sendMessage({ type: 'GET_USER_ID' }, r => resolve(r?.userId || null));
+    } catch (e) {
+      resolve(null);
+    }
+  });
 
   if (!userId) {
     inject(signInPanel());
@@ -21,12 +26,13 @@ const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
 
   let markdown, chart, measurements;
   try {
-    [markdown, measurements] = await Promise.all([
-      fetchPageMarkdown(window.location.href),
-      fetchMeasurements(userId),
-    ]);
-    chart = parseSizeChart(markdown);
-  } catch {
+    const markdownSource = site.name === 'amazon'
+      ? readAmazonSizeChart()
+      : fetchPageMarkdown(window.location.href);
+    [markdown, measurements] = await Promise.all([markdownSource, fetchMeasurements(userId)]);
+    chart = markdown ? parseSizeChart(markdown) : null;
+  } catch (e) {
+    console.error('[FitMe] Failed to fetch size data:', e);
     inject(errorPanel());
     return;
   }
@@ -36,6 +42,9 @@ const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
     inject(noChartPanel(measurements));
     return;
   }
+
+  console.info('[FitMe DEBUG] measurements from Firestore:', JSON.stringify(measurements));
+  console.info('[FitMe DEBUG] parsed chart:', JSON.stringify(chart));
 
   const rec = getRecommendation(chart, measurements);
   console.info('[FitMe] Recommendation:', rec.size, rec.warning || '');

@@ -2,11 +2,19 @@
 // via postMessage, then stores the user ID in chrome.storage via the service worker.
 
 function sendWithRetry(message, attemptsLeft) {
-  chrome.runtime.sendMessage(message, function () {
-    if (chrome.runtime.lastError && attemptsLeft > 0) {
-      setTimeout(function () { sendWithRetry(message, attemptsLeft - 1); }, 500);
-    }
-  });
+  // If the extension was reloaded (common while developing) while this tab was
+  // already open, this tab's content script is orphaned and chrome.runtime.sendMessage
+  // throws synchronously instead of failing through the callback. Nothing to retry —
+  // the tab needs a refresh to pick up the new content script.
+  try {
+    chrome.runtime.sendMessage(message, function () {
+      if (chrome.runtime.lastError && attemptsLeft > 0) {
+        setTimeout(function () { sendWithRetry(message, attemptsLeft - 1); }, 500);
+      }
+    });
+  } catch (e) {
+    // Extension context invalidated — ignore.
+  }
 }
 
 window.addEventListener('message', function (event) {
