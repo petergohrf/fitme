@@ -111,12 +111,12 @@ function parseRange(cell) {
     .replace(/\s*(centimeters?|centimetres?|cm|inches?|in|")\s*$/i, '')
     .replace(/\s/g, '');
 
-  // Open-ended high: "34+"
-  var openHigh = s.match(/^(\d+(?:\.\d+)?)\+$/);
+  // Open-ended high: "34+" or "34plus" (whitespace already stripped)
+  var openHigh = s.match(/^(\d+(?:\.\d+)?)(?:\+|plus)$/i);
   if (openHigh) return [parseFloat(openHigh[1]), 999];
 
-  // Open-ended low: "upto34" (whitespace already stripped)
-  var openLow = s.match(/^upto(\d+(?:\.\d+)?)$/i);
+  // Open-ended low: "upto34" or "under34" (whitespace already stripped)
+  var openLow = s.match(/^(?:upto|under)(\d+(?:\.\d+)?)$/i);
   if (openLow) return [0, parseFloat(openLow[1])];
 
   // Range: "32-34" or "32–34"

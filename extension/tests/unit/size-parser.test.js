@@ -81,8 +81,14 @@ test('parseRange: handles fraction in range', () => {
 test('parseRange: handles open-ended high "34+"', () => {
   assert.deepEqual(parseRange('34+'), [34, 999]);
 });
+test('parseRange: handles open-ended high "34 plus"', () => {
+  assert.deepEqual(parseRange('34 plus'), [34, 999]);
+});
 test('parseRange: handles open-ended low "up to 34"', () => {
   assert.deepEqual(parseRange('up to 34'), [0, 34]);
+});
+test('parseRange: handles open-ended low "under 34"', () => {
+  assert.deepEqual(parseRange('under 34'), [0, 34]);
 });
 
 // --- Existing behaviour still works ---
