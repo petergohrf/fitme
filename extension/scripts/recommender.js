@@ -95,7 +95,7 @@ function getRecommendation(chart, measurements) {
   if (perfect) {
     var details = buildDetails(chart[perfect], userInChartUnits, measurementKeys, chartUnit);
     var checked = details.length;
-    var coverageWarning = checked < Math.ceil(chartColumnCount / 2)
+    var coverageWarning = checked < chartColumnCount
       ? 'Matched on ' + checked + ' of ' + chartColumnCount + ' measurements — save more for a better result'
       : null;
     return { size: perfect, details: details, warning: coverageWarning };

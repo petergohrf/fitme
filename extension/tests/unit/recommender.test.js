@@ -66,6 +66,15 @@ test('partial match: adds coverage warning when fewer than half chart columns ma
   assert.match(result.warning, /1 of 3/);
 });
 
+test('partial match: adds coverage warning even when 2 of 3 chart columns matched', () => {
+  // Chart has 3 measurement columns; user has bust + waist (2 of 3)
+  // 2 < ceil(3/2)=2 is FALSE under the old threshold — this test catches that regression
+  const result = getRecommendation(CHART_IN, { bust: 36, waist: 29, unit: 'in' });
+  assert.equal(result.size, 'M');
+  assert.ok(result.warning, 'warning should be set for any gap');
+  assert.match(result.warning, /2 of 3/);
+});
+
 // --- Between sizes (existing behaviour preserved) ---
 test('between sizes: sizes up and reports which measurements drove the decision', () => {
   // Bust fits M, waist fits S — should size up to L
