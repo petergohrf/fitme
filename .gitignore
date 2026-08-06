@@ -3,3 +3,4 @@ tests/.env
 tests/node_modules/
 tests/playwright-report/
 tests/test-results/
+tests/fixtures/e2e-profile/
