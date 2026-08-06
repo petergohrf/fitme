@@ -6,16 +6,28 @@
     window.postMessage({ type: '__FITME_CLERK__', userId: userId }, '*');
   }
 
-  function waitForClerk() {
-    if (window.Clerk && window.Clerk.loaded) {
-      sendState();
-      window.Clerk.addListener(sendState);
-    } else {
-      setTimeout(waitForClerk, 300);
-    }
+  function waitForClerk(maxAttempts) {
+    maxAttempts = maxAttempts || 100;
+    return new Promise(function (resolve, reject) {
+      function poll(remaining) {
+        if (window.Clerk && window.Clerk.loaded) {
+          resolve();
+          return;
+        }
+        if (remaining <= 0) {
+          reject(new Error('Clerk not found after ' + maxAttempts + ' attempts'));
+          return;
+        }
+        setTimeout(function () { poll(remaining - 1); }, 300);
+      }
+      poll(maxAttempts);
+    });
   }
 
-  waitForClerk();
+  waitForClerk(100).then(function () {
+    sendState();
+    window.Clerk.addListener(sendState);
+  }).catch(function () {});
   // Extra retries in case session restores after Clerk's loaded flag is set
   setTimeout(sendState, 2000);
   setTimeout(sendState, 5000);

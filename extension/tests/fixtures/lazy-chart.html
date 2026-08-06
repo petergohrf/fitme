@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html><body>
+<h1>Women's Jeans</h1>
+<button id="size-chart-btn">Size Chart</button>
+<div id="chart-container"></div>
+<script>
+document.getElementById('size-chart-btn').addEventListener('click', function () {
+  document.getElementById('chart-container').innerHTML =
+    '<table>' +
+    '<thead><tr><th>Size</th><th>Waist</th><th>Hips</th><th>Inseam</th></tr></thead>' +
+    '<tbody>' +
+    '<tr><td>0</td><td>26-27</td><td>35-36</td><td>30</td></tr>' +
+    '<tr><td>2</td><td>27-28</td><td>36-37</td><td>30</td></tr>' +
+    '<tr><td>4</td><td>28-29</td><td>37-38</td><td>30</td></tr>' +
+    '</tbody></table>';
+});
+</script>
+</body></html>

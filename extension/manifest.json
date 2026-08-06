@@ -19,7 +19,8 @@
     "service_worker": "background/service-worker.js"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "tabs"
   ],
   "host_permissions": [
     "*://*.loft.com/*",
@@ -40,8 +41,7 @@
       ],
       "js": [
         "scripts/site-detector.js",
-        "scripts/jina-client.js",
-        "scripts/dom-chart-reader.js",
+        "scripts/universal-chart-reader.js",
         "scripts/size-parser.js",
         "scripts/recommender.js",
         "scripts/firebase-client.js",

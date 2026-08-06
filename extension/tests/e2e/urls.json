@@ -1,0 +1,17 @@
+{
+  "amazon": [
+    "https://www.amazon.com/dp/B09ZXDM5WC",
+    "https://www.amazon.com/dp/B07PG5WTFL"
+  ],
+  "loft": [
+    "https://www.loft.com/petite-classic-ponte-blazer/p/123456",
+    "https://www.loft.com/flutter-sleeve-midi-dress/p/234567"
+  ],
+  "anntaylor": [
+    "https://www.anntaylor.com/the-linen-blazer/p/497234",
+    "https://www.anntaylor.com/flutter-sleeve-dress/p/512345"
+  ],
+  "poshmark": [
+    "https://poshmark.com/listing/Calvin-Klein-Dress-60a123abc456"
+  ]
+}

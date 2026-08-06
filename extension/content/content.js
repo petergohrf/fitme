@@ -1,44 +1,64 @@
 const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
 
-(async () => {
+let _fitMeGeneration = 0;
+
+async function runFitMe() {
+  const gen = ++_fitMeGeneration;
+
   const site = detectSite(window.location.href);
   if (!site) return;
 
-  const userId = await new Promise(resolve => {
-    // Same "extension context invalidated" risk as auth-bridge.js — see comment there.
-    try {
-      chrome.runtime.sendMessage({ type: 'GET_USER_ID' }, r => resolve(r?.userId || null));
-    } catch (e) {
-      resolve(null);
-    }
-  });
+  let userId;
+  try {
+    userId = await new Promise(resolve => {
+      try {
+        chrome.runtime.sendMessage({ type: 'GET_USER_ID' }, r => {
+          if (chrome.runtime.lastError) { resolve('__context_invalid__'); return; }
+          resolve(r?.userId || null);
+        });
+      } catch (e) {
+        resolve('__context_invalid__');
+      }
+    });
+  } catch (e) {
+    userId = '__context_invalid__';
+  }
+
+  if (gen !== _fitMeGeneration) return;
+  if (userId === '__context_invalid__') {
+    return;
+  }
 
   if (!userId) {
+    if (gen !== _fitMeGeneration) return;
     inject(signInPanel());
     return;
   }
 
   if (site.type === 'tag-only') {
     const measurements = await fetchMeasurements(userId).catch(() => null);
+    if (gen !== _fitMeGeneration) return;
     inject(tagOnlyPanel(measurements));
     return;
   }
 
   let markdown, chart, measurements;
   try {
-    const markdownSource = site.name === 'amazon'
-      ? readAmazonSizeChart()
-      : fetchPageMarkdown(window.location.href);
-    [markdown, measurements] = await Promise.all([markdownSource, fetchMeasurements(userId)]);
+    [markdown, measurements] = await Promise.all([
+      readSizeChart(window.location.href),
+      fetchMeasurements(userId),
+    ]);
     chart = markdown ? parseSizeChart(markdown) : null;
   } catch (e) {
     console.error('[FitMe] Failed to fetch size data:', e);
+    if (gen !== _fitMeGeneration) return;
     inject(errorPanel());
     return;
   }
 
   if (!chart) {
     console.info('[FitMe] No size chart found on', window.location.href);
+    if (gen !== _fitMeGeneration) return;
     inject(noChartPanel(measurements));
     return;
   }
@@ -48,8 +68,43 @@ const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
 
   const rec = getRecommendation(chart, measurements);
   console.info('[FitMe] Recommendation:', rec.size, rec.warning || '');
+
+  if (rec.noMeasurements) {
+    if (gen !== _fitMeGeneration) return;
+    inject(noMeasurementsPanel());
+    return;
+  }
+  if (gen !== _fitMeGeneration) return;
   inject(recommendationPanel(rec));
-})();
+}
+
+runFitMe();
+installSpaHook();
+
+function installSpaHook() {
+  if (window.__fitme_spa_hook) return; // idempotent — only install once per page lifetime
+  window.__fitme_spa_hook = true;
+
+  var originalPushState = history.pushState.bind(history);
+  history.pushState = function () {
+    originalPushState.apply(history, arguments);
+    onUrlChange();
+  };
+  window.addEventListener('popstate', onUrlChange);
+}
+
+function onUrlChange() {
+  // Wait for the SPA framework to render the new product before reading the chart.
+  // 800ms covers React and Vue re-render cycles on typical product pages.
+  setTimeout(function () {
+    var site = detectSite(window.location.href);
+    if (!site) {
+      document.getElementById('fitme-panel')?.remove();
+      return;
+    }
+    refreshPanel();
+  }, 800);
+}
 
 function inject(html) {
   document.getElementById('fitme-panel')?.remove();
@@ -88,6 +143,10 @@ function signInPanel() {
   return shell(`<p class="fm-message">Sign in to FitMe to get size recommendations while you shop.</p>`);
 }
 
+function refreshPanel() {
+  runFitMe();
+}
+
 function noChartPanel(measurements) {
   const rows = measurementRows(measurements);
   return shell(`<p class="fm-message">Couldn't read a size chart — here are your measurements to compare manually:</p><div class="fm-details">${rows}</div>`);
@@ -109,3 +168,14 @@ function measurementRows(measurements) {
     .map(([k, v]) => `<div class="fm-row"><span>${cap(esc(k))}</span><span>${esc(v)}${esc(measurements.unit)}</span></div>`)
     .join('');
 }
+
+function noMeasurementsPanel() {
+  return shell('<p class="fm-message">Save your measurements on FitMe to get size recommendations.</p>' +
+    '<a class="fm-link" href="' + FITME_MANNEQUIN_URL + '" target="_blank" rel="noopener noreferrer">Go to FitMe →</a>');
+}
+
+chrome.runtime.onMessage.addListener(function (message) {
+  if (message.type === 'AUTH_CHANGED') {
+    refreshPanel();
+  }
+});
