@@ -101,11 +101,32 @@ function findSizeNameColumnIndex(headerRow, colMap) {
 
 function parseRange(cell) {
   if (!cell) return null;
-  const s = cell.replace(/["""'']/g, '').replace(/\s/g, '');
-  const rangeMatch = s.match(/^(\d+(?:\.\d+)?)[–\-](\d+(?:\.\d+)?)$/);
+  var s = cell
+    .replace(/["""'']/g, '')
+    // Normalise Unicode fractions before any other processing
+    .replace(/½/g, '.5')
+    .replace(/¼/g, '.25')
+    .replace(/¾/g, '.75')
+    // Strip trailing unit tokens (cm, in, inches, ")
+    .replace(/\s*(centimeters?|centimetres?|cm|inches?|in|")\s*$/i, '')
+    .replace(/\s/g, '');
+
+  // Open-ended high: "34+"
+  var openHigh = s.match(/^(\d+(?:\.\d+)?)\+$/);
+  if (openHigh) return [parseFloat(openHigh[1]), 999];
+
+  // Open-ended low: "upto34" (whitespace already stripped)
+  var openLow = s.match(/^upto(\d+(?:\.\d+)?)$/i);
+  if (openLow) return [0, parseFloat(openLow[1])];
+
+  // Range: "32-34" or "32–34"
+  var rangeMatch = s.match(/^(\d+(?:\.\d+)?)[–\-](\d+(?:\.\d+)?)$/);
   if (rangeMatch) return [parseFloat(rangeMatch[1]), parseFloat(rangeMatch[2])];
-  const singleMatch = s.match(/^(\d+(?:\.\d+)?)$/);
-  if (singleMatch) { const v = parseFloat(singleMatch[1]); return [v, v]; }
+
+  // Single value: "30"
+  var singleMatch = s.match(/^(\d+(?:\.\d+)?)$/);
+  if (singleMatch) { var v = parseFloat(singleMatch[1]); return [v, v]; }
+
   return null;
 }
 

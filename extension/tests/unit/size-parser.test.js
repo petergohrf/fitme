@@ -44,6 +44,61 @@ test('empty cells: column indices are correct after an empty mid-row cell', () =
   assert.deepEqual(chart.M.thigh, [22, 23]);
 });
 
+// --- B-3: Fix parseRange — embedded units, Unicode fractions, open-ended ranges ---
+
+// --- Fix: embedded units ---
+test('parseRange: strips trailing cm unit', () => {
+  assert.deepEqual(parseRange('34 cm'), [34, 34]);
+});
+test('parseRange: strips range with cm unit', () => {
+  assert.deepEqual(parseRange('34-36 cm'), [34, 36]);
+});
+test('parseRange: strips trailing in unit', () => {
+  assert.deepEqual(parseRange('14 in'), [14, 14]);
+});
+test('parseRange: strips trailing inches unit', () => {
+  assert.deepEqual(parseRange('34-36 inches'), [34, 36]);
+});
+test('parseRange: strips trailing double-quote inch symbol', () => {
+  assert.deepEqual(parseRange('14"'), [14, 14]);
+});
+
+// --- Fix: fractions ---
+test('parseRange: handles ½ fraction', () => {
+  assert.deepEqual(parseRange('34½'), [34.5, 34.5]);
+});
+test('parseRange: handles ¼ fraction', () => {
+  assert.deepEqual(parseRange('36¼'), [36.25, 36.25]);
+});
+test('parseRange: handles ¾ fraction', () => {
+  assert.deepEqual(parseRange('35¾'), [35.75, 35.75]);
+});
+test('parseRange: handles fraction in range', () => {
+  assert.deepEqual(parseRange('34½-36'), [34.5, 36]);
+});
+
+// --- Fix: open-ended ranges ---
+test('parseRange: handles open-ended high "34+"', () => {
+  assert.deepEqual(parseRange('34+'), [34, 999]);
+});
+test('parseRange: handles open-ended low "up to 34"', () => {
+  assert.deepEqual(parseRange('up to 34'), [0, 34]);
+});
+
+// --- Existing behaviour still works ---
+test('parseRange: standard range', () => {
+  assert.deepEqual(parseRange('32-34'), [32, 34]);
+});
+test('parseRange: single value', () => {
+  assert.deepEqual(parseRange('30'), [30, 30]);
+});
+test('parseRange: returns null for non-numeric', () => {
+  assert.equal(parseRange('N/A'), null);
+});
+test('parseRange: returns null for empty string', () => {
+  assert.equal(parseRange(''), null);
+});
+
 // --- Fix 3: size name column by exclusion ---
 test('column exclusion: finds size name when a numeric index column precedes it', () => {
   // Table has a leading index column: # | Size | Bust | Waist
