@@ -6,16 +6,17 @@
     window.postMessage({ type: '__FITME_CLERK__', userId: userId }, '*');
   }
 
-  function waitForClerk() {
+  function waitForClerk(attemptsLeft) {
+    if (attemptsLeft <= 0) return; // give up after ~30 seconds
     if (window.Clerk && window.Clerk.loaded) {
       sendState();
       window.Clerk.addListener(sendState);
     } else {
-      setTimeout(waitForClerk, 300);
+      setTimeout(function () { waitForClerk(attemptsLeft - 1); }, 300);
     }
   }
 
-  waitForClerk();
+  waitForClerk(100); // 100 × 300ms = 30 seconds maximum
   // Extra retries in case session restores after Clerk's loaded flag is set
   setTimeout(sendState, 2000);
   setTimeout(sendState, 5000);
