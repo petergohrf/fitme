@@ -68,6 +68,32 @@ async function runFitMe() {
 }
 
 runFitMe();
+installSpaHook();
+
+function installSpaHook() {
+  if (window.__fitme_spa_hook) return; // idempotent — only install once per page lifetime
+  window.__fitme_spa_hook = true;
+
+  var originalPushState = history.pushState.bind(history);
+  history.pushState = function () {
+    originalPushState.apply(history, arguments);
+    onUrlChange();
+  };
+  window.addEventListener('popstate', onUrlChange);
+}
+
+function onUrlChange() {
+  // Wait for the SPA framework to render the new product before reading the chart.
+  // 800ms covers React and Vue re-render cycles on typical product pages.
+  setTimeout(function () {
+    var site = detectSite(window.location.href);
+    if (!site) {
+      document.getElementById('fitme-panel')?.remove();
+      return;
+    }
+    runFitMe();
+  }, 800);
+}
 
 function inject(html) {
   document.getElementById('fitme-panel')?.remove();
