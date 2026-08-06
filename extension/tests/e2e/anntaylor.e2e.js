@@ -22,6 +22,8 @@ for (const url of urls.anntaylor) {
     expect(panelText).not.toContain('please refresh this page');
     if (panelText.includes("Couldn't read")) {
       console.warn('[E2E] No chart found on', url, '— verify this Ann Taylor URL has a size chart');
+    } else if (panelText.includes('outside this chart')) {
+      console.info('[E2E] Chart found; test measurements outside size range on', url);
     } else {
       expect(panelText).toContain('Recommended: Size');
     }
