@@ -1,0 +1,8 @@
+{
+  "name": "fitme-extension-tests",
+  "version": "1.0.0",
+  "description": "Integration tests for FitMe Chrome extension",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1"
+  }
+}
