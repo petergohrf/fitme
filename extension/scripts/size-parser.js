@@ -10,23 +10,59 @@ const MEASUREMENT_KEYWORDS = {
 };
 
 function parseSizeChart(markdown) {
-  // Match markdown tables: header row | separator row | one-or-more data rows
-  const tableRe = /\|(.+)\|\s*\n\|[-| :]+\|\s*\n((?:\|.+\|\s*\n?)+)/g;
-  let match;
-  while ((match = tableRe.exec(markdown)) !== null) {
-    const headers = match[1].split('|').map(h => h.trim().toLowerCase()).filter(Boolean);
-    const colMap = buildColumnMap(headers);
-    if (!colMap || Object.keys(colMap).length === 0) continue;
+  // Collect groups of pipe-table lines
+  var lines = markdown.split('\n');
+  var tables = [];
+  var current = null;
+  for (var i = 0; i < lines.length; i++) {
+    var trimmed = lines[i].trim();
+    if (trimmed.charAt(0) === '|') {
+      if (!current) current = [];
+      current.push(trimmed);
+    } else {
+      if (current && current.length >= 3) tables.push(current);
+      current = null;
+    }
+  }
+  if (current && current.length >= 3) tables.push(current);
 
-    const chart = {};
-    for (const row of match[2].trim().split('\n')) {
-      const cells = row.split('|').map(c => c.trim()).filter(Boolean);
-      if (cells.length < 2) continue;
-      const sizeName = cells[0];
-      if (!sizeName || sizeName.startsWith('-')) continue;
-      const entry = {};
-      for (const [measurement, colIndex] of Object.entries(colMap)) {
-        const range = parseRange(cells[colIndex]);
+  for (var t = 0; t < tables.length; t++) {
+    var tableLines = tables[t];
+
+    // Parse rows: strip outer pipes, split by |, trim — preserve empty cells (no filter)
+    var rows = tableLines
+      .map(function (line) {
+        return line.replace(/^\||\|$/g, '').split('|').map(function (c) { return c.trim(); });
+      })
+      .filter(function (cells) {
+        // Skip separator rows (all cells are dashes/spaces)
+        return !cells.every(function (c) { return /^[-\s:]*$/.test(c); });
+      });
+
+    if (rows.length < 2) continue;
+
+    // Find the first row that contains at least one measurement keyword
+    var headerRowIdx = -1;
+    var colMap = null;
+    for (var r = 0; r < rows.length; r++) {
+      colMap = buildColumnMap(rows[r]);
+      if (colMap) { headerRowIdx = r; break; }
+    }
+    if (headerRowIdx < 0) continue;
+
+    var headerRow = rows[headerRowIdx];
+    var sizeColIdx = findSizeNameColumnIndex(headerRow, colMap);
+
+    // Parse all rows after the header row as data rows
+    var chart = {};
+    for (var d = headerRowIdx + 1; d < rows.length; d++) {
+      var cells = rows[d];
+      var sizeName = cells[sizeColIdx];
+      if (!sizeName) continue;
+      var entry = {};
+      for (var measurement in colMap) {
+        if (!Object.prototype.hasOwnProperty.call(colMap, measurement)) continue;
+        var range = parseRange(cells[colMap[measurement]]);
         if (range) entry[measurement] = range;
       }
       if (Object.keys(entry).length > 0) chart[sizeName] = entry;
@@ -37,13 +73,30 @@ function parseSizeChart(markdown) {
 }
 
 function buildColumnMap(headers) {
-  const map = {};
-  for (let i = 1; i < headers.length; i++) {
-    for (const [measurement, keywords] of Object.entries(MEASUREMENT_KEYWORDS)) {
-      if (keywords.some(kw => headers[i].includes(kw))) map[measurement] = i;
+  var map = {};
+  for (var i = 0; i < headers.length; i++) {
+    var h = headers[i].toLowerCase();
+    for (var measurement in MEASUREMENT_KEYWORDS) {
+      if (!Object.prototype.hasOwnProperty.call(MEASUREMENT_KEYWORDS, measurement)) continue;
+      var keywords = MEASUREMENT_KEYWORDS[measurement];
+      if (keywords.some(function (kw) { return h.indexOf(kw) !== -1; })) {
+        map[measurement] = i;
+      }
     }
   }
   return Object.keys(map).length > 0 ? map : null;
+}
+
+// Returns the index of the size-name column: the last non-measurement column
+// before the first measurement column. Falls back to column 0.
+function findSizeNameColumnIndex(headerRow, colMap) {
+  var measurementCols = Object.values(colMap);
+  var firstMeasurementCol = Math.min.apply(null, measurementCols);
+  // Walk backwards from the first measurement column to find the last non-measurement column
+  for (var i = firstMeasurementCol - 1; i >= 0; i--) {
+    if (measurementCols.indexOf(i) === -1) return i;
+  }
+  return 0;
 }
 
 function parseRange(cell) {
@@ -58,5 +111,5 @@ function parseRange(cell) {
 
 // Allow Node.js unit testing — no-op in browser (no module global)
 if (typeof module !== 'undefined') {
-  module.exports = { parseSizeChart, buildColumnMap, parseRange };
+  module.exports = { parseSizeChart, buildColumnMap, parseRange, findSizeNameColumnIndex };
 }
