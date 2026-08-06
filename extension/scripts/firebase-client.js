@@ -16,7 +16,7 @@ const FIELD_MAP = {
 async function fetchMeasurements(userId) {
   const url = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents/users/${userId}?key=${FIREBASE_API_KEY}`;
   const response = await fetch(url);
-  if (response.status === 404) return { unit: 'in' }; // user has no saved measurements yet
+  if (response.status === 404) return { unit: 'cm' }; // user has no saved measurements yet
   if (!response.ok) throw new Error('Firestore fetch failed: ' + response.status);
   const doc = await response.json();
   return parseFirestoreDoc(doc);
@@ -35,9 +35,10 @@ function parseFirestoreDoc(doc) {
     }
   }
 
-  // Extract unit
-  const unitField = fields['fitme_unit'];
-  result.unit = unitField ? (extractFirestoreMapValue(unitField) || 'in') : 'in';
+  // FitMe's main site always converts to centimeters before storing (see
+  // scripts/guide.js saveMeasurement()) — fitme_unit is only the user's last-selected
+  // *display* preference, not the actual unit of these values, so it's not read here.
+  result.unit = 'cm';
   return result;
 }
 

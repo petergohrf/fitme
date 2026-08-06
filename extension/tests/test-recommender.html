@@ -55,6 +55,18 @@ assertFields('measurements outside all sizes → size null',
 assertFields('partial measurements → recommends from what is available',
   getRecommendation(chart, { bust: 36, unit: 'in' }),
   { size: 'M', warning: null });
+
+// Test 6: between sizes on EVERY measurement (no size contains any of them) —
+// bust falls in the S/M gap, waist falls in the S/M gap, hips falls in the S/M gap.
+// Should size up to M rather than report "outside range".
+assertFields('between sizes on every measurement → sizes up, not "outside range"',
+  getRecommendation(chart, { bust: 35.5, waist: 28.5, hips: 38.5, unit: 'in' }),
+  { size: 'M', warning: "Between S and M — sized up because your bust, waist, hips are larger than S's range" });
+
+// Test 7: genuinely bigger than the largest size everywhere — still "outside range"
+assertFields('bigger than largest size on every measurement → still size null',
+  getRecommendation(chart, { bust: 50, waist: 45, hips: 55, unit: 'in' }),
+  { size: null, warning: "Your measurements are outside this chart's size range" });
 </script>
 </body>
 </html>

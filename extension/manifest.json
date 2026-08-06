@@ -41,6 +41,7 @@
       "js": [
         "scripts/site-detector.js",
         "scripts/jina-client.js",
+        "scripts/dom-chart-reader.js",
         "scripts/size-parser.js",
         "scripts/recommender.js",
         "scripts/firebase-client.js",
@@ -48,6 +49,12 @@
       ],
       "css": ["content/panel.css"],
       "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://petergohrf.github.io/*"],
+      "js": ["content/page-bridge.js"],
+      "run_at": "document_idle",
+      "world": "MAIN"
     },
     {
       "matches": ["https://petergohrf.github.io/*"],

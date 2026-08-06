@@ -19,4 +19,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
     return true;
   }
+
+  if (message.type === 'FETCH_JINA_MARKDOWN') {
+    const jinaUrl = 'https://r.jina.ai/' + encodeURIComponent(message.url);
+    fetch(jinaUrl, { headers: { 'Accept': 'text/markdown' } })
+      .then((response) => {
+        if (!response.ok) throw new Error('Jina fetch failed: ' + response.status + ' for ' + message.url);
+        return response.text();
+      })
+      .then((markdown) => sendResponse({ ok: true, markdown }))
+      .catch((error) => sendResponse({ ok: false, error: error.message }));
+    return true;
+  }
 });
