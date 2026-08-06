@@ -99,3 +99,8 @@ function buildDetails(sizeRanges, userVals, keys, chartUnit) {
       rangeLabel: sizeRanges[k][0] + '–' + sizeRanges[k][1] + (chartUnit === 'cm' ? 'cm' : '"'),
     }));
 }
+
+// Allow Node.js unit testing — no-op in browser (no module global)
+if (typeof module !== 'undefined') {
+  module.exports = { getRecommendation, detectChartUnit };
+}

@@ -17,3 +17,8 @@ function detectSite(url) {
   }
   return null;
 }
+
+// Allow Node.js unit testing — no-op in browser (no module global)
+if (typeof module !== 'undefined') {
+  module.exports = { detectSite };
+}

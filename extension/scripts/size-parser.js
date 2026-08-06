@@ -55,3 +55,8 @@ function parseRange(cell) {
   if (singleMatch) { const v = parseFloat(singleMatch[1]); return [v, v]; }
   return null;
 }
+
+// Allow Node.js unit testing — no-op in browser (no module global)
+if (typeof module !== 'undefined') {
+  module.exports = { parseSizeChart, buildColumnMap, parseRange };
+}
