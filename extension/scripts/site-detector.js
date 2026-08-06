@@ -3,7 +3,7 @@ const SITES_CONFIG = {
   fitmeHost: 'https://petergohrf.github.io/fitme',
   sites: [
     { name: 'loft',       type: 'chart',    hostPattern: 'loft\\.com',       productPattern: '\\d{4,}\\.html' },
-    { name: 'anntaylor',  type: 'chart',    hostPattern: 'anntaylor\\.com',  productPattern: '/product/|/p/' },
+    { name: 'anntaylor',  type: 'chart',    hostPattern: 'anntaylor\\.com',  productPattern: '\\d{5,}\\.html' },
     { name: 'amazon',     type: 'chart',    hostPattern: 'amazon\\.com',     productPattern: '/dp/|/gp/product/' },
     { name: 'poshmark',   type: 'tag-only', hostPattern: 'poshmark\\.com',   productPattern: '/listing/' },
   ]
