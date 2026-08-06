@@ -162,3 +162,9 @@ function noMeasurementsPanel() {
   return shell('<p class="fm-message">Save your measurements on FitMe to get size recommendations.</p>' +
     '<a class="fm-link" href="' + FITME_MANNEQUIN_URL + '" target="_blank" rel="noopener noreferrer">Go to FitMe →</a>');
 }
+
+chrome.runtime.onMessage.addListener(function (message) {
+  if (message.type === 'AUTH_CHANGED') {
+    runFitMe();
+  }
+});

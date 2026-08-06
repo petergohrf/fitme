@@ -19,7 +19,8 @@
     "service_worker": "background/service-worker.js"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "tabs"
   ],
   "host_permissions": [
     "*://*.loft.com/*",

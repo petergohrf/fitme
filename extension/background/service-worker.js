@@ -1,3 +1,11 @@
+// Mirrors the host patterns in manifest.json content_scripts.matches
+var SHOPPING_PATTERNS = [
+  '*://*.loft.com/*',
+  '*://*.anntaylor.com/*',
+  '*://*.amazon.com/*',
+  '*://*.poshmark.com/*',
+];
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'STORE_USER_ID') {
     chrome.storage.local.set({ fitme_user_id: message.userId }, () => {
@@ -14,8 +22,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.type === 'CLEAR_USER_ID') {
-    chrome.storage.local.remove('fitme_user_id', () => {
+    chrome.storage.local.remove('fitme_user_id', function () {
       sendResponse({ ok: true });
+      // Notify all open shopping tabs that auth has changed
+      chrome.tabs.query({ url: SHOPPING_PATTERNS }, function (tabs) {
+        (tabs || []).forEach(function (tab) {
+          chrome.tabs.sendMessage(tab.id, { type: 'AUTH_CHANGED' }).catch(function () {
+            // Tab may have no content script — ignore
+          });
+        });
+      });
     });
     return true;
   }
