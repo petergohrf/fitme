@@ -88,7 +88,7 @@ function waitForScoredTable(timeoutMs) {
   });
 }
 
-function fetchPageMarkdown(url) {
+function fetchJinaMarkdown(url) {
   return new Promise(function (resolve, reject) {
     try {
       chrome.runtime.sendMessage({ type: 'FETCH_JINA_MARKDOWN', url: url }, function (response) {
@@ -120,10 +120,10 @@ function readSizeChart(url) {
     trigger.click();
     return tablePromise.then(function (table) {
       if (table) return tableToMarkdown(table);
-      return fetchPageMarkdown(url).catch(function () { return null; });
+      return fetchJinaMarkdown(url).catch(function () { return null; });
     });
   }
 
   // Phase 3: Jina fallback
-  return fetchPageMarkdown(url).catch(function () { return null; });
+  return fetchJinaMarkdown(url).catch(function () { return null; });
 }

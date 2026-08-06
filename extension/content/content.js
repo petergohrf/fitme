@@ -26,10 +26,7 @@ const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
 
   let markdown, chart, measurements;
   try {
-    const markdownSource = site.name === 'amazon'
-      ? readAmazonSizeChart()
-      : fetchPageMarkdown(window.location.href);
-    [markdown, measurements] = await Promise.all([markdownSource, fetchMeasurements(userId)]);
+    [markdown, measurements] = await Promise.all([readSizeChart(window.location.href), fetchMeasurements(userId)]);
     chart = markdown ? parseSizeChart(markdown) : null;
   } catch (e) {
     console.error('[FitMe] Failed to fetch size data:', e);
@@ -48,6 +45,10 @@ const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
 
   const rec = getRecommendation(chart, measurements);
   console.info('[FitMe] Recommendation:', rec.size, rec.warning || '');
+  if (rec.noMeasurements) {
+    inject(noMeasurementsPanel());
+    return;
+  }
   inject(recommendationPanel(rec));
 })();
 
@@ -108,4 +109,9 @@ function measurementRows(measurements) {
     .filter(([k]) => k !== 'unit')
     .map(([k, v]) => `<div class="fm-row"><span>${cap(esc(k))}</span><span>${esc(v)}${esc(measurements.unit)}</span></div>`)
     .join('');
+}
+
+function noMeasurementsPanel() {
+  return shell('<p class="fm-message">Save your measurements on FitMe to get size recommendations.</p>' +
+    '<a class="fm-link" href="' + FITME_MANNEQUIN_URL + '" target="_blank" rel="noopener noreferrer">Go to FitMe →</a>');
 }
