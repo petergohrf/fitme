@@ -21,7 +21,6 @@ async function runFitMe() {
   }
 
   if (userId === '__context_invalid__') {
-    inject(refreshPanel());
     return;
   }
 
@@ -108,7 +107,7 @@ function signInPanel() {
 }
 
 function refreshPanel() {
-  return shell('<p class="fm-message">Extension was updated — please refresh this page to get size recommendations.</p>');
+  runFitMe();
 }
 
 function noChartPanel(measurements) {
