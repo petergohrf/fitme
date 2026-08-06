@@ -1,17 +1,29 @@
 const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
 
-(async () => {
+async function runFitMe() {
   const site = detectSite(window.location.href);
   if (!site) return;
 
-  const userId = await new Promise(resolve => {
-    // Same "extension context invalidated" risk as auth-bridge.js — see comment there.
-    try {
-      chrome.runtime.sendMessage({ type: 'GET_USER_ID' }, r => resolve(r?.userId || null));
-    } catch (e) {
-      resolve(null);
-    }
-  });
+  let userId;
+  try {
+    userId = await new Promise(resolve => {
+      try {
+        chrome.runtime.sendMessage({ type: 'GET_USER_ID' }, r => {
+          if (chrome.runtime.lastError) { resolve('__context_invalid__'); return; }
+          resolve(r?.userId || null);
+        });
+      } catch (e) {
+        resolve('__context_invalid__');
+      }
+    });
+  } catch (e) {
+    userId = '__context_invalid__';
+  }
+
+  if (userId === '__context_invalid__') {
+    inject(refreshPanel());
+    return;
+  }
 
   if (!userId) {
     inject(signInPanel());
@@ -26,7 +38,10 @@ const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
 
   let markdown, chart, measurements;
   try {
-    [markdown, measurements] = await Promise.all([readSizeChart(window.location.href), fetchMeasurements(userId)]);
+    [markdown, measurements] = await Promise.all([
+      readSizeChart(window.location.href),
+      fetchMeasurements(userId),
+    ]);
     chart = markdown ? parseSizeChart(markdown) : null;
   } catch (e) {
     console.error('[FitMe] Failed to fetch size data:', e);
@@ -45,12 +60,15 @@ const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
 
   const rec = getRecommendation(chart, measurements);
   console.info('[FitMe] Recommendation:', rec.size, rec.warning || '');
+
   if (rec.noMeasurements) {
     inject(noMeasurementsPanel());
     return;
   }
   inject(recommendationPanel(rec));
-})();
+}
+
+runFitMe();
 
 function inject(html) {
   document.getElementById('fitme-panel')?.remove();
@@ -87,6 +105,10 @@ function recommendationPanel(rec) {
 
 function signInPanel() {
   return shell(`<p class="fm-message">Sign in to FitMe to get size recommendations while you shop.</p>`);
+}
+
+function refreshPanel() {
+  return shell('<p class="fm-message">Extension was updated — please refresh this page to get size recommendations.</p>');
 }
 
 function noChartPanel(measurements) {
