@@ -1,6 +1,10 @@
 const FITME_MANNEQUIN_URL = 'https://petergohrf.github.io/fitme/mannequin.html';
 
+let _fitMeGeneration = 0;
+
 async function runFitMe() {
+  const gen = ++_fitMeGeneration;
+
   const site = detectSite(window.location.href);
   if (!site) return;
 
@@ -20,17 +24,20 @@ async function runFitMe() {
     userId = '__context_invalid__';
   }
 
+  if (gen !== _fitMeGeneration) return;
   if (userId === '__context_invalid__') {
     return;
   }
 
   if (!userId) {
+    if (gen !== _fitMeGeneration) return;
     inject(signInPanel());
     return;
   }
 
   if (site.type === 'tag-only') {
     const measurements = await fetchMeasurements(userId).catch(() => null);
+    if (gen !== _fitMeGeneration) return;
     inject(tagOnlyPanel(measurements));
     return;
   }
@@ -44,12 +51,14 @@ async function runFitMe() {
     chart = markdown ? parseSizeChart(markdown) : null;
   } catch (e) {
     console.error('[FitMe] Failed to fetch size data:', e);
+    if (gen !== _fitMeGeneration) return;
     inject(errorPanel());
     return;
   }
 
   if (!chart) {
     console.info('[FitMe] No size chart found on', window.location.href);
+    if (gen !== _fitMeGeneration) return;
     inject(noChartPanel(measurements));
     return;
   }
@@ -61,9 +70,11 @@ async function runFitMe() {
   console.info('[FitMe] Recommendation:', rec.size, rec.warning || '');
 
   if (rec.noMeasurements) {
+    if (gen !== _fitMeGeneration) return;
     inject(noMeasurementsPanel());
     return;
   }
+  if (gen !== _fitMeGeneration) return;
   inject(recommendationPanel(rec));
 }
 
@@ -91,7 +102,7 @@ function onUrlChange() {
       document.getElementById('fitme-panel')?.remove();
       return;
     }
-    runFitMe();
+    refreshPanel();
   }, 800);
 }
 
@@ -165,6 +176,6 @@ function noMeasurementsPanel() {
 
 chrome.runtime.onMessage.addListener(function (message) {
   if (message.type === 'AUTH_CHANGED') {
-    runFitMe();
+    refreshPanel();
   }
 });

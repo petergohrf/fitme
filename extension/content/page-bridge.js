@@ -27,7 +27,7 @@
   waitForClerk(100).then(function () {
     sendState();
     window.Clerk.addListener(sendState);
-  });
+  }).catch(function () {});
   // Extra retries in case session restores after Clerk's loaded flag is set
   setTimeout(sendState, 2000);
   setTimeout(sendState, 5000);
